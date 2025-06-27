@@ -18,4 +18,6 @@ public class RegistrationRequested extends AbstractEvent {
     private Integer subscriberBill;
     private String title;
     private String writingId;
+
+
 }

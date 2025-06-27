@@ -8,7 +8,7 @@ import mini.infra.AbstractEvent;
 @Data
 @ToString
 public class PointDecreased extends AbstractEvent {
-
+    private Long bookId; 
     private Integer price;
     private String userId;
     private Long balance;
