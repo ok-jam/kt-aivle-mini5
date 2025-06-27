@@ -11,16 +11,11 @@ import mini.infra.AbstractEvent;
 @ToString
 public class BookInformationRequested extends AbstractEvent {
 
-    private String writingId;
+    private Long writingId;
     private String title;
     private String content;
     private String category;
-    private Long authorId;
-    private String status;
-    private Date permitSaveAt;
-    private String imageUrl;
-    private Integer subscriberBill;
-
+    
     public BookInformationRequested(Writing aggregate) {
         super(aggregate);
     }

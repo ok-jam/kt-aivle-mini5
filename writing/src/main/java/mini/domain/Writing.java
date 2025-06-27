@@ -21,7 +21,7 @@ public class Writing {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private String writingId;
+    private Long writingId;
 
     private Long authorId;
 
@@ -39,20 +39,13 @@ public class Writing {
 
     private Integer subscriberBill;
 
+    private String summary;
+
+    private String pdf;
+
     @PostPersist
     public void onPostPersist() {
-        BookInformationRequested bookInformationRequested = new BookInformationRequested(
-            this
-        );
-        bookInformationRequested.publishAfterCommit();
 
-        SaveBooked saveBooked = new SaveBooked(this);
-        saveBooked.publishAfterCommit();
-
-        RegistrationRequested registrationRequested = new RegistrationRequested(
-            this
-        );
-        registrationRequested.publishAfterCommit();
     }
 
     public static WritingRepository repository() {
@@ -78,15 +71,18 @@ public class Writing {
         
         // ObjectMapper mapper = new ObjectMapper();
         // Map<, Object> aiMap = mapper.convertValue(resultsReturned.getAiGptId(), Map.class);
-
-        repository().findById(resultsReturned.get???()).ifPresent(writing->{
+        
+        */
+        repository().findById(resultsReturned.getWritingId().toString()).ifPresent(writing->{
             
-            writing // do something
+            writing.setImageUrl(resultsReturned.getResultImage());
+            writing.setSummary(resultsReturned.getResultsummary());
+            writing.setPdf(resultsReturned.getResultPdf());
             repository().save(writing);
 
 
          });
-        */
+  
 
     }
     //>>> Clean Arch / Port Method
