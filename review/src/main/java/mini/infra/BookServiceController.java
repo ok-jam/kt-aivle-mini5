@@ -27,4 +27,9 @@ public class BookServiceController {
     public Iterable<BookService> getAllReviews() {
         return bookServiceRepository.findAll();
     }
+    @PostMapping("/bookServices")
+    public BookService createReview(@RequestBody BookService bookService) {
+    return bookServiceRepository.save(bookService);
+}
+
 }
