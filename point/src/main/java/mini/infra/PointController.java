@@ -13,11 +13,11 @@ import org.springframework.web.bind.annotation.RestController;
 //<<< Clean Arch / Inbound Adaptor
 
 @RestController
-// @RequestMapping(value="/포인트")
+@RequestMapping(value="/point")
 @Transactional
-public class 포인트Controller {
+public class PointController {
 
     @Autowired
-    포인트Repository 포인트Repository;
+    PointRepository pointRepository;
 }
 //>>> Clean Arch / Inbound Adaptor

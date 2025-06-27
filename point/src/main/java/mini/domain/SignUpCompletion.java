@@ -16,8 +16,12 @@ public class SignUpCompletion extends AbstractEvent {
     private String history;
     private Date updateAt;
 
-    public SignUpCompletion(포인트 aggregate) {
+    public SignUpCompletion(Point aggregate) {
         super(aggregate);
+        this.userId = aggregate.getUserId();
+        this.balance = aggregate.getBalance();
+        this.history = aggregate.getHistory();
+        this.updateAt = aggregate.getUpdateAt();
     }
 
     public SignUpCompletion() {

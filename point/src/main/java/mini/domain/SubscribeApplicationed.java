@@ -12,5 +12,5 @@ public class SubscribeApplicationed extends AbstractEvent {
     private Boolean subscriptionType;
     private Integer price;
     private Long subscriptionId;
-    private Long subcriberId;
+    private Long subscriberId;
 }

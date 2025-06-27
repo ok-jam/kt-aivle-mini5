@@ -31,7 +31,7 @@ public class Subscribe {
 
     private Integer price;
 
-    private Long subcriberId;
+    private Long subscriberId;
 
     private Long bookId;
 
