@@ -5,6 +5,7 @@ import java.util.*;
 import lombok.*;
 import mini.domain.*;
 import mini.infra.AbstractEvent;
+import javax.persistence.*;
 
 //<<< DDD / Domain Event
 @Data

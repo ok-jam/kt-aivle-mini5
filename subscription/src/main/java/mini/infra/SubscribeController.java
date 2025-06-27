@@ -19,5 +19,23 @@ public class SubscribeController {
 
     @Autowired
     SubscribeRepository subscribeRepository;
+    @PostMapping
+    public Subscribe apply(@RequestBody Subscribe request) {
+
+        request.setStatus("APPLIED");
+        request.setStartDate(new Date());
+
+        // 단일 열람: 3일 정도로 설정
+        Date endDate = new Date(System.currentTimeMillis() + 3L * 24 * 60 * 60 * 1000);
+        request.setEndDate(endDate);
+
+        Subscribe saved = subscribeRepository.save(request);
+
+        // 이벤트 발행
+        SubscribeApplicationed event = new SubscribeApplicationed(saved);
+        event.publish();
+
+        return saved;
+    }
 }
 //>>> Clean Arch / Inbound Adaptor

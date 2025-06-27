@@ -13,8 +13,8 @@ public class SubscribeCanceled extends AbstractEvent {
 
     private Long id;
 
-    public SubscribeCanceled(Subscribe aggregate) {
-        super(aggregate);
+    public SubscribeCanceled(Subscribe subscribe) {
+        super(subscribe);
     }
 
     public SubscribeCanceled() {
