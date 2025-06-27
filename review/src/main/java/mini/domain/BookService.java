@@ -1,11 +1,5 @@
 package mini.domain;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import java.time.LocalDate;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
 import javax.persistence.*;
 import lombok.Data;
 import mini.ReviewApplication;
@@ -14,7 +8,6 @@ import mini.domain.ReviewCreated;
 @Entity
 @Table(name = "BookService_table")
 @Data
-//<<< DDD / Aggregate Root
 public class BookService {
 
     @Id
@@ -22,12 +15,16 @@ public class BookService {
     private Long bookServiceId;
 
     private Long bookId;
-
     private Long userId;
-
     private Double rating;
-
     private String review;
+
+    // 명시적 getter 추가
+    public Long getBookServiceId() { return this.bookServiceId; }
+    public Long getBookId() { return this.bookId; }
+    public Long getUserId() { return this.userId; }
+    public Double getRating() { return this.rating; }
+    public String getReview() { return this.review; }
 
     @PostPersist
     public void onPostPersist() {
@@ -36,10 +33,6 @@ public class BookService {
     }
 
     public static BookServiceRepository repository() {
-        BookServiceRepository bookServiceRepository = ReviewApplication.applicationContext.getBean(
-            BookServiceRepository.class
-        );
-        return bookServiceRepository;
+        return ReviewApplication.applicationContext.getBean(BookServiceRepository.class);
     }
 }
-//>>> DDD / Aggregate Root

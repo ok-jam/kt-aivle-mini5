@@ -12,11 +12,10 @@ import org.springframework.transaction.support.TransactionSynchronizationAdapter
 import org.springframework.transaction.support.TransactionSynchronizationManager;
 import org.springframework.util.MimeTypeUtils;
 
-//<<< Clean Arch / Outbound Adaptor
 public class AbstractEvent {
 
-    String eventType;
-    Long timestamp;
+    private String eventType;
+    private Long timestamp;
 
     public AbstractEvent(Object aggregate) {
         this();
@@ -29,21 +28,13 @@ public class AbstractEvent {
     }
 
     public void publish() {
-        /**
-         * spring streams 방식
-         */
-        KafkaProcessor processor = ReviewApplication.applicationContext.getBean(
-            KafkaProcessor.class
-        );
+        KafkaProcessor processor = ReviewApplication.applicationContext.getBean(KafkaProcessor.class);
         MessageChannel outputChannel = processor.outboundTopic();
 
         outputChannel.send(
             MessageBuilder
                 .withPayload(this)
-                .setHeader(
-                    MessageHeaders.CONTENT_TYPE,
-                    MimeTypeUtils.APPLICATION_JSON
-                )
+                .setHeader(MessageHeaders.CONTENT_TYPE, MimeTypeUtils.APPLICATION_JSON)
                 .setHeader("type", getEventType())
                 .build()
         );
@@ -82,15 +73,10 @@ public class AbstractEvent {
 
     public String toJson() {
         ObjectMapper objectMapper = new ObjectMapper();
-        String json = null;
-
         try {
-            json = objectMapper.writeValueAsString(this);
+            return objectMapper.writeValueAsString(this);
         } catch (JsonProcessingException e) {
             throw new RuntimeException("JSON format exception", e);
         }
-
-        return json;
     }
 }
-//>>> Clean Arch / Outbound Adaptor

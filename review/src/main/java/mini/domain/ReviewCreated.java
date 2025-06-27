@@ -1,14 +1,7 @@
 package mini.domain;
 
-import java.time.LocalDate;
-import java.util.*;
-import lombok.*;
-import mini.domain.*;
 import mini.infra.AbstractEvent;
 
-//<<< DDD / Domain Event
-@Data
-@ToString
 public class ReviewCreated extends AbstractEvent {
 
     private Long bookServiceId;
@@ -19,10 +12,30 @@ public class ReviewCreated extends AbstractEvent {
 
     public ReviewCreated(BookService aggregate) {
         super(aggregate);
+        this.bookServiceId = aggregate.getBookServiceId();
+        this.bookId = aggregate.getBookId();
+        this.userId = aggregate.getUserId();
+        this.rating = aggregate.getRating();
+        this.review = aggregate.getReview();
     }
 
-    public ReviewCreated() {
-        super();
+    public Long getBookServiceId() {
+        return bookServiceId;
+    }
+
+    public Long getBookId() {
+        return bookId;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public Double getRating() {
+        return rating;
+    }
+
+    public String getReview() {
+        return review;
     }
 }
-//>>> DDD / Domain Event
