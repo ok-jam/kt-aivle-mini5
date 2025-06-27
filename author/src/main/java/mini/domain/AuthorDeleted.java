@@ -1,14 +1,11 @@
 package mini.domain;
 
-import java.time.LocalDate;
-import java.util.*;
 import lombok.*;
-import mini.domain.*;
 import mini.infra.AbstractEvent;
 
-//<<< DDD / Domain Event
 @Data
-@ToString
+@NoArgsConstructor
+@EqualsAndHashCode(callSuper = false)
 public class AuthorDeleted extends AbstractEvent {
 
     private Long id;
@@ -16,15 +13,13 @@ public class AuthorDeleted extends AbstractEvent {
     private String bio;
     private String portfolioUrl;
     private String status;
-    private Date createdAt;
-    private Date updateAt;
 
-    public AuthorDeleted(Author aggregate) {
-        super(aggregate);
-    }
-
-    public AuthorDeleted() {
-        super();
+    public AuthorDeleted(Author author) {
+        super(author); // AbstractEvent에 있는 생성자
+        this.id = author.getId();
+        this.name = author.getName();
+        this.bio = author.getBio();
+        this.portfolioUrl = author.getPortfolioUrl();
+        this.status = author.getStatus();
     }
 }
-//>>> DDD / Domain Event
