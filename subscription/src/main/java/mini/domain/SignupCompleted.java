@@ -21,8 +21,15 @@ public class SignupCompleted extends AbstractEvent {
     private Long jjim;
     private Long reviews;
 
-    public SignupCompleted(Subscriber aggregate) {
-        super(aggregate);
+    public SignupCompleted(Subscriber subscriber) {
+        super(subscriber);
+        this.subscriberId = subscriber.getId();
+        this.ktTelecom = subscriber.getKtTelecom();
+        this.subscriptionType = subscriber.getSubscriptionType();
+        this.name = subscriber.getName();
+        this.email = subscriber.getEmail();
+        this.joinedAt = subscriber.getJoinedAt();
+
     }
 
     public SignupCompleted() {

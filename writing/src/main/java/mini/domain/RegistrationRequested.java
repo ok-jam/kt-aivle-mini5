@@ -19,7 +19,9 @@ public class RegistrationRequested extends AbstractEvent {
     private String category;
     private Integer subscriberBill;
     private String title;
-    private String writingId;
+    private Long writingId;
+    private String summary;
+    private String pdf;
 
     public RegistrationRequested(Writing aggregate) {
         super(aggregate);

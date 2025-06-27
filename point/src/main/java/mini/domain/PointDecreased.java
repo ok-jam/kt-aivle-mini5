@@ -17,7 +17,7 @@ public class PointDecreased extends AbstractEvent {
     private String history;
     private Date updateAt;
 
-    public PointDecreased(포인트 aggregate) {
+    public PointDecreased(Point aggregate) {
         super(aggregate);
     }
 

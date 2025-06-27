@@ -14,12 +14,14 @@ public class SubscribeApplicationed extends AbstractEvent {
     private Boolean subscriptionType;
     private Integer price;
     private Long subscriptionId;
-    private Long subcriberId;
+    private Long subscriberId;
 
-    public SubscribeApplicationed(Subscribe aggregate) {
-        super(aggregate);
+    public SubscribeApplicationed(Subscribe subscribe) {
+        super(subscribe);
+        this.subscriptionId = subscribe.getSubscriptionId();
+        this.subscriberId = subscribe.getSubscriberId();
+        this.price = subscribe.getPrice();
     }
-
     public SubscribeApplicationed() {
         super();
     }

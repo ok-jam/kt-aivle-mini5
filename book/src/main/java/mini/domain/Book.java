@@ -12,6 +12,8 @@ import mini.BookApplication;
 import mini.domain.BestsellerRegistered;
 import mini.domain.BookRegistered;
 import mini.domain.ReadingRequested;
+import mini.infra.AbstractEvent;
+
 
 @Entity
 @Table(name = "Book_table")
@@ -19,110 +21,86 @@ import mini.domain.ReadingRequested;
 //<<< DDD / Aggregate Root
 public class Book {
 
+    // ──────────────── 기본 필드 ────────────────
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private String title;
-
     private String summary;
-
     private Long authorId;
-
     private String coverImageUrl;
-
     private String content;
-
     private Date createdAt;
-
     private Date publishedAt;
-
     private Long viewcount;
-
     private String category;
-
     private Integer subscriberBill;
+    private Boolean readable;          // 열람 가능 여부
+    private Boolean bestCheck;
 
+    // ──────────────── 이벤트 발행 (예: 직접 등록 INSERT 시) ────────────────
     @PostPersist
     public void onPostPersist() {
-        BestsellerRegistered bestsellerRegistered = new BestsellerRegistered(
-            this
-        );
-        bestsellerRegistered.publishAfterCommit();
-
+        // 필요에 따라 초기 이벤트 발행 (원한다면 유지, 아니면 주석 처리)
         BookRegistered bookRegistered = new BookRegistered(this);
         bookRegistered.publishAfterCommit();
-
-        ReadingRequested readingRequested = new ReadingRequested(this);
-        readingRequested.publishAfterCommit();
     }
 
+    // ──────────────── 레포지토리 헬퍼 ────────────────
     public static BookRepository repository() {
-        BookRepository bookRepository = BookApplication.applicationContext.getBean(
-            BookRepository.class
-        );
-        return bookRepository;
+        return BookApplication.applicationContext.getBean(BookRepository.class);
     }
 
-    //<<< Clean Arch / Port Method
-    public static void bookRegistration(
-        RegistrationRequested registrationRequested
-    ) {
-        //implement business logic here:
+    // ──────────────── Port Method #1 : 책 등록 ────────────────
+    public static void bookRegistration(RegistrationRequested event) {
 
-        /** Example 1:  new item 
         Book book = new Book();
+        // ID를 외부에서 주입받지 않는다면 setId 제거!
+        book.setTitle(event.getTitle());
+        book.setAuthorId(event.getAuthorId());
+        book.setCreatedAt(new Date());
+        book.setViewcount(0L);
+        book.setReadable(false);
+
         repository().save(book);
 
         BookRegistered bookRegistered = new BookRegistered(book);
         bookRegistered.publishAfterCommit();
-        */
-
-        /** Example 2:  finding and process
-        
-
-        repository().findById(registrationRequested.get???()).ifPresent(book->{
-            
-            book // do something
-            repository().save(book);
-
-            BookRegistered bookRegistered = new BookRegistered(book);
-            bookRegistered.publishAfterCommit();
-
-         });
-        */
-
     }
 
-    //>>> Clean Arch / Port Method
-    //<<< Clean Arch / Port Method
-    public static void readingRequest(PointDecreased pointDecreased) {
-        //implement business logic here:
+    // ──────────────── Port Method #2 : 열람 요청 처리 ────────────────
+    public static void readingRequest(PointDecreased event) {
 
-        /** Example 1:  new item 
-        Book book = new Book();
-        repository().save(book);
+        repository().findById(event.getBookId()).ifPresent(book -> {
 
-        ReadingRequested readingRequested = new ReadingRequested(book);
-        readingRequested.publishAfterCommit();
-        */
-
-        /** Example 2:  finding and process
-        
-
-        repository().findById(pointDecreased.get???()).ifPresent(book->{
-            
-            book // do something
+            // ① 조회수 증가
+            long current = book.getViewcount() == null ? 0 : book.getViewcount();
+            book.setViewcount(current + 1);
+            book.setReadable(true);
             repository().save(book);
 
+            // ② 열람요청됨 이벤트 발행
             ReadingRequested readingRequested = new ReadingRequested(book);
             readingRequested.publishAfterCommit();
 
-         });
-        */
-
+            // ③ 베스트셀러 조건 판단 (5회 이상)
+            if (book.getViewcount() >= 5) {
+                book.setBestCheck(True);
+                BestsellerRegistered bestsellerRegistered = new BestsellerRegistered(book);
+                bestsellerRegistered.publishAfterCommit();
+            }
+        });
     }
-    //>>> Clean Arch / Port Method
 
+    // ──────────────── Port Method #3 : 베스트셀러 등록 요청 ────────────────
+    public static void registerBestseller(Long bookId) {
+        repository().findById(bookId).ifPresent(book -> {
+            if (book.getViewcount() != null && book.getViewcount() >= 5) {
+                BestsellerRegistered event = new BestsellerRegistered(book);
+                event.publishAfterCommit();
+            }
+        });
+    }
 }
 //>>> DDD / Aggregate Root

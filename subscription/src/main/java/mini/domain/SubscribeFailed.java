@@ -13,8 +13,8 @@ public class SubscribeFailed extends AbstractEvent {
 
     private Long id;
 
-    public SubscribeFailed(Subscribe aggregate) {
-        super(aggregate);
+    public SubscribeFailed(Subscribe subscribe) {
+        super(subscribe);
     }
 
     public SubscribeFailed() {

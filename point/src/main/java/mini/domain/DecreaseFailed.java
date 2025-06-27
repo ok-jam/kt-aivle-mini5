@@ -16,7 +16,7 @@ public class DecreaseFailed extends AbstractEvent {
     private String history;
     private Date updateAt;
 
-    public DecreaseFailed(포인트 aggregate) {
+    public DecreaseFailed(Point aggregate) {
         super(aggregate);
     }
 

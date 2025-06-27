@@ -14,4 +14,6 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
     path = "subscribes"
 )
 public interface SubscribeRepository
-    extends PagingAndSortingRepository<Subscribe, Long> {}
+    extends JpaRepository<Subscribe, Long> {
+        
+    }

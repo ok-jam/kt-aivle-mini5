@@ -1,23 +1,35 @@
 package mini.infra;
 
-import java.util.Optional;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
-import mini.domain.*;
+import mini.domain.BookService;
+import mini.domain.BookServiceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-//<<< Clean Arch / Inbound Adaptor
 
 @RestController
-// @RequestMapping(value="/bookServices")
 @Transactional
 public class BookServiceController {
 
+    private final BookServiceRepository bookServiceRepository;
+
+    // ✅ 생성자 주입
     @Autowired
-    BookServiceRepository bookServiceRepository;
+    public BookServiceController(BookServiceRepository bookServiceRepository) {
+        this.bookServiceRepository = bookServiceRepository;
+    }
+
+    // 또는 @Autowired 필드 주입을 원한다면 아래처럼만 해도 됩니다:
+    // @Autowired
+    // BookServiceRepository bookServiceRepository;
+
+    // 예시로 GET API 하나 추가
+    @GetMapping("/bookServices")
+    public Iterable<BookService> getAllReviews() {
+        return bookServiceRepository.findAll();
+    }
+    @PostMapping("/bookServices")
+    public BookService createReview(@RequestBody BookService bookService) {
+    return bookServiceRepository.save(bookService);
 }
-//>>> Clean Arch / Inbound Adaptor
+
+}

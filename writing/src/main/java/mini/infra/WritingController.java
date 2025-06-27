@@ -13,11 +13,39 @@ import org.springframework.web.bind.annotation.RestController;
 //<<< Clean Arch / Inbound Adaptor
 
 @RestController
-// @RequestMapping(value="/writings")
+@RequestMapping(value="/writings")
 @Transactional
 public class WritingController {
 
     @Autowired
     WritingRepository writingRepository;
+
+    @PostMapping("/bookinfo")
+    public Writing requestBookInfo(@RequestBody Writing writing) {
+        Writing saved = writingRepository.save(writing);
+
+        BookInformationRequested bookInformationRequested = new BookInformationRequested(saved);
+        bookInformationRequested.publishAfterCommit();
+
+        return saved;
+    }
+
+
+    @PostMapping("/savebooked")
+    public Writing saveBooked(@RequestBody Writing writing) {
+        Writing saved = writingRepository.save(writing);
+
+        SaveBooked saveBooked = new SaveBooked(saved);
+        saveBooked.publishAfterCommit();
+
+        return saved;
+    }
+
+    @PostMapping("/register")
+    public Writing register(@RequestBody Writing writing) {
+        Writing saved = writingRepository.save(writing);
+
+        return saved;
+    }
 }
 //>>> Clean Arch / Inbound Adaptor

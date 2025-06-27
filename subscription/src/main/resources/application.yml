@@ -18,7 +18,7 @@ spring:
     stream:
       kafka:
         binder:
-          brokers: localhost:9092
+          brokers: localhost:9092 # 로컬 개발용 kafka 브로커
         streams:
           binder:
             configuration:

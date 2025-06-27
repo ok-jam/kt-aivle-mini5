@@ -22,8 +22,7 @@ public class BestsellerRegistered extends AbstractEvent {
     private Long viewcount;
     private String category;
     private Integer subscriberBill;
-
-    public BestsellerRegistered(Book aggregate) {
+ public BestsellerRegistered(Book aggregate) {
         super(aggregate);
     }
 
