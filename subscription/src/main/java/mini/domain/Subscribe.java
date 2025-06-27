@@ -11,7 +11,6 @@ import lombok.Data;
 import mini.SubscriptionApplication;
 import mini.domain.SubscribeApplicationed;
 import mini.domain.SubscribeCanceled;
-import mini.domain.SubscribeFailed;
 
 @Entity
 @Table(name = "Subscribe_table")
@@ -47,9 +46,6 @@ public class Subscribe {
 
         SubscribeCanceled subscribeCanceled = new SubscribeCanceled(this);
         subscribeCanceled.publishAfterCommit();
-
-        SubscribeFailed subscribeFailed = new SubscribeFailed(this);
-        subscribeFailed.publishAfterCommit();
     }
 
     public static SubscribeRepository repository() {
@@ -67,8 +63,6 @@ public class Subscribe {
         Subscribe subscribe = new Subscribe();
         repository().save(subscribe);
 
-        SubscribeFailed subscribeFailed = new SubscribeFailed(subscribe);
-        subscribeFailed.publishAfterCommit();
         */
 
         /** Example 2:  finding and process
@@ -79,8 +73,6 @@ public class Subscribe {
             subscribe // do something
             repository().save(subscribe);
 
-            SubscribeFailed subscribeFailed = new SubscribeFailed(subscribe);
-            subscribeFailed.publishAfterCommit();
 
          });
         */
