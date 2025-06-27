@@ -11,11 +11,8 @@ public class ResultsReturned extends AbstractEvent {
 
     private String resultImage;
     private String resultsummary;
-    private Object resultPdf;
+    private String resultPdf;
     private Long taskId;
     private Long writingId;
-    private String taskType;
-    private String status;
-    private Date requestedAt;
-    private Date completedAt;
+
 }
