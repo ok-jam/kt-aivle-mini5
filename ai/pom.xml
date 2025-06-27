@@ -37,13 +37,30 @@
 		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
+			<version>2.2.224</version>
 			<scope>runtime</scope>
 		</dependency>
+		
+		 <dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- JUnit 5 (Jupiter) - 일반적으로 위 테스트 starter에 포함됨 -->
+		<!-- 명시적으로 필요하다면 아래도 추가 -->
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter</artifactId>
+			<version>5.9.3</version> <!-- Spring Boot 버전에 맞는 JUnit 5 버전으로 -->
+			<scope>test</scope>
+		</dependency>
+
       <!-- lombok -->
 		<dependency>
 				<groupId>org.projectlombok</groupId>
 				<artifactId>lombok</artifactId>
-				<version>1.18.12</version>
+				<version>1.18.30</version>
 				<scope>provided</scope>
 		</dependency>
 		<dependency>
@@ -90,6 +107,28 @@
 			<version>${cucumber.version}</version>
 			<scope>test</scope>
 		</dependency>
+		<!-- OpenAI -->
+		<!-- OkHttp -->
+		<dependency>
+			<groupId>com.squareup.okhttp3</groupId>
+			<artifactId>okhttp</artifactId>
+			<version>4.9.3</version>
+		</dependency>
+
+		<!-- JSON 처리용 -->
+		<dependency>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+			<version>20210307</version>
+		</dependency>
+
+		<!-- Apache PDFBox -->
+		<dependency>
+			<groupId>org.apache.pdfbox</groupId>
+			<artifactId>pdfbox</artifactId>
+			<version>2.0.27</version>
+		</dependency>
+
 	</dependencies>
 
 	<dependencyManagement>
@@ -119,5 +158,6 @@
 			</plugin>
 		</plugins>
 	</build>
+	
 
 </project>
