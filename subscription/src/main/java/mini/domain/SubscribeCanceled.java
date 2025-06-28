@@ -8,13 +8,19 @@ import mini.infra.AbstractEvent;
 
 //<<< DDD / Domain Event
 @Data
-@ToString
 public class SubscribeCanceled extends AbstractEvent {
 
-    private Long id;
+    private Long subscriptionId;
+    private Long subscriberId;
+    private Long bookId;
+    private String status;
 
     public SubscribeCanceled(Subscribe subscribe) {
         super(subscribe);
+        this.subscriptionId = subscribe.getSubscriptionId();
+        this.subscriberId = subscribe.getSubscriberId();
+        this.bookId = subscribe.getBookId();
+        this.status = subscribe.getStatus();
     }
 
     public SubscribeCanceled() {

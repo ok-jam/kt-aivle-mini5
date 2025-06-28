@@ -12,6 +12,7 @@ import mini.SubscriptionApplication;
 import mini.domain.SubscribeApplicationed;
 import mini.domain.SubscribeCanceled;
 import mini.domain.SubscribeFailed;
+import mini.infra.AbstractEvent;
 
 @Entity
 @Table(name = "Subscribe_table")
@@ -22,42 +23,35 @@ public class Subscribe {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long subscriptionId;
-
     private String status;
-
     private Date startDate;
-
     private Date endDate;
-
     private Integer price;
-
     private Long subscriberId;
-
     private Long bookId;
-
-    @Embedded
-    private 구독자Id 구독자Id;
 
     @PostPersist
     public void onPostPersist() {
-        SubscribeApplicationed subscribeApplicationed = new SubscribeApplicationed(
-            this
-        );
-        subscribeApplicationed.publishAfterCommit();
+                this.status = "신청됨";
+        this.startDate = new Date();
+        // 임의로 7일 구독 기간 부여
+        this.endDate = new Date(System.currentTimeMillis() + (1000L * 60 * 60 * 24 * 7));
+        this.price = 1000;
 
-        SubscribeCanceled subscribeCanceled = new SubscribeCanceled(this);
-        subscribeCanceled.publishAfterCommit();
+        SubscribeApplicationed event = new SubscribeApplicationed(this);
+        event.publishAfterCommit(); // 이벤트 발행
+    }
+    public void cancel() {
+    this.status = "취소됨";
 
-        SubscribeFailed subscribeFailed = new SubscribeFailed(this);
-        subscribeFailed.publishAfterCommit();
+    SubscribeCanceled event = new SubscribeCanceled(this);
+    event.publishAfterCommit();
+    }
+    public void markAsFailed() {
+    this.status = "실패";  // 상태만 바꿔줌
     }
 
-    public static SubscribeRepository repository() {
-        SubscribeRepository subscribeRepository = SubscriptionApplication.applicationContext.getBean(
-            SubscribeRepository.class
-        );
-        return subscribeRepository;
-    }
+
 
     //<<< Clean Arch / Port Method
     public static void subscribefail(DecreaseFailed decreaseFailed) {

@@ -12,24 +12,26 @@ import mini.infra.AbstractEvent;
 public class SignupCompleted extends AbstractEvent {
 
     private Long subscriberId;
-    private Boolean kttelecom;
-    private Boolean subscriptionType;
     private String name;
     private String email;
     private String password;
-    private Date joinedAt;
-    private Long jjim;
+    private Boolean kttelecom;
+    private java.util.Date joinedAt;
+    private Boolean subscriptionType;
+    private Boolean jjim;
     private Long reviews;
 
     public SignupCompleted(Subscriber subscriber) {
         super(subscriber);
-        this.subscriberId = subscriber.getId();
-        this.ktTelecom = subscriber.getKtTelecom();
-        this.subscriptionType = subscriber.getSubscriptionType();
+        this.subscriberId = subscriber.getSubscriberId();
         this.name = subscriber.getName();
         this.email = subscriber.getEmail();
+        this.password = subscriber.getPassword();
+        this.kttelecom = subscriber.getKttelecom();
         this.joinedAt = subscriber.getJoinedAt();
-
+        this.subscriptionType = subscriber.getSubscriptionType();
+        this.jjim = subscriber.getJjim();
+        this.reviews = subscriber.getReviews();
     }
 
     public SignupCompleted() {

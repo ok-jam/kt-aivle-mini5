@@ -8,12 +8,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
-//<<< PoEAA / Repository
-@RepositoryRestResource(
-    collectionResourceRel = "subscribes",
-    path = "subscribes"
-)
+
 public interface SubscribeRepository
-    extends JpaRepository<Subscribe, Long> {
+    extends PagingAndSortingRepository<Subscribe, Long> {
         
     }

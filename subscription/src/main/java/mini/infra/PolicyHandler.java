@@ -1,65 +1,60 @@
 package mini.infra;
 
-import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import javax.naming.NameParser;
-import javax.naming.NameParser;
-import javax.transaction.Transactional;
 import mini.config.kafka.KafkaProcessor;
-import mini.domain.*;
-import org.springframework.beans.factory.annotation.Autowired;
+import mini.domain.SubscribeApplicationed;
+import mini.domain.Subscribe;
+import mini.domain.SubscribeRepository;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+import mini.infra.AbstractEvent;
+import mini.domain.DecreaseFailed;
+import java.util.HashMap;
+import java.util.Map;
 
-//<<< Clean Arch / Inbound Adaptor
+@Slf4j
 @Service
-@Transactional
+@RequiredArgsConstructor
 public class PolicyHandler {
-
-    @Autowired
-    SubscriberRepository subscriberRepository;
-
-    @Autowired
-    SubscribeRepository subscribeRepository;
+    private final SubscribeRepository subscribeRepository;
 
     @StreamListener(KafkaProcessor.INPUT)
-    public void whatever(@Payload String eventString) {}
+    public void wheneverSubscribeApplicationed_RequestPointDecrease(@Payload SubscribeApplicationed event) {
+        if (!event.validate()) return;
 
-    @StreamListener(
-        value = KafkaProcessor.INPUT,
-        condition = "headers['type']=='DecreaseFailed'"
-    )
-    public void wheneverDecreaseFailed_Subscribefail(
-        @Payload DecreaseFailed decreaseFailed
-    ) {
-        DecreaseFailed event = decreaseFailed;
-        System.out.println(
-             "\n\n❌ 포인트 부족으로 구독 불가: 사용자 " + decreaseFailed.getUserId() + "\n");
+        log.info(" 포인트 차감 요청 전송: {}", event);
+
+        // 예시: 포인트 도메인에 REST API 요청 (또는 Kafka 발행도 가능)
+        Map<String, Object> request = new HashMap<>();
+        request.put("subscriberId", event.getSubscriberId());
+        request.put("amount", event.getPrice());
+        request.put("subscriptionId", event.getSubscriptionId());  // 실패 대응 위해 추가
+
+        try {
+            RestTemplate restTemplate = new RestTemplate();
+            restTemplate.postForObject(
+                "http://POINTING:8080/points/decrease",  // 포인트 도메인의 엔드포인트 주소
+                request,
+                String.class
+            );
+        } catch (Exception e) {
+            log.error(" 포인트 차감 요청 실패: {}", e.getMessage());
+        }
+    }
+    @StreamListener(KafkaProcessor.INPUT)
+    public void wheneverDecreaseFailed_MarkSubscribeAsFailed(@Payload DecreaseFailed event) {
+        if (event.getSubscriptionId() == null) return;
+
+        log.info(" 포인트 차감 실패 감지: {}", event.getSubscriptionId());
+
+        subscribeRepository.findById(event.getSubscriptionId()).ifPresent(subscribe -> {
+            subscribe.markAsFailed(); // 구독 상태 실패로 변경
+            subscribeRepository.save(subscribe);
+        });
     }
 }
-//>>> Clean Arch / Inbound Adaptor
-@StreamListener(
-    value = KafkaProcessor.INPUT,
-    condition = "headers['type']=='PointDecreased'"  // 포인트 차감 완료 이벤트
-)
-public void wheneverPointDecreased_RequestBookRead(@Payload PointDecreased pointDecreased) {
-    System.out.println("\n\n listener: 도서 열람 요청 → " + pointDecreased + "\n");
 
-    // Step 1. 해당 구독 정보 찾아오기
-    Long subscriptionId = pointDecreased.getSubscriptionId();  // 전제: 이 필드 존재해야 함
-
-    Subscribe.subscribeRepository().findById(subscriptionId).ifPresent(subscribe -> {
-        // Step 2. 상태를 SUBSCRIBED로 변경
-        subscribe.setStatus("SUBSCRIBED");
-        Subscribe.repository().save(subscribe);
-
-        // Step 3. 열람 요청 이벤트 발행
-        BookReadRequested event = new BookReadRequested();
-        event.setSubscriptionId(subscriptionId);
-        event.setBookId(subscribe.getBookId());
-        event.setSubscriberId(subscribe.getSubcriberId());
-        event.setStartDate(new Date());
-        event.publishAfterCommit();
-    });
-}
