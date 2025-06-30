@@ -30,7 +30,6 @@ public class Point {
 
     private Date updateAt;
 
-    private Long bookId;
 
     public static PointRepository repository() {
         PointRepository PointRepository = PointApplication.applicationContext.getBean(
@@ -60,6 +59,7 @@ public class Point {
                 repository().save(point);
 
                 PointDecreased pointDecreased = new PointDecreased(point);
+                pointDecreased.setBookId(subscribeApplicationed.getBookId());
                 pointDecreased.publishAfterCommit();
             }
             

@@ -13,4 +13,5 @@ public class SubscribeApplicationed extends AbstractEvent {
     private Integer price;
     private Long subscriptionId;
     private Long subscriberId;
+    private Long bookId;
 }
