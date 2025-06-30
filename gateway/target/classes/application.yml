@@ -89,7 +89,7 @@ spring:
         - id: point
           uri: http://point:8080
           predicates:
-            - Path=/포인트/**, 
+            - Path=/point/**, 
         - id: review
           uri: http://review:8080
           predicates:
