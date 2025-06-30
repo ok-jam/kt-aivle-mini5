@@ -14,6 +14,7 @@ import mini.domain.SubscriptionPurchased;
 import mini.infra.AbstractEvent;
 
 @Entity
+@Table(name = "Subscriber_table")
 @Data
 public class Subscriber {
 
@@ -38,6 +39,13 @@ public class Subscriber {
         SubscriptionPurchased event = new SubscriptionPurchased(this);
         event.publishAfterCommit();
     }
+
+    public static SubscriberRepository repository() {
+        SubscriberRepository subscriberRepository = SubscriptionApplication.applicationContext.getBean(
+            SubscriberRepository.class
+        );
+        return subscriberRepository;
+    }
     
     @PrePersist
     public void onPrePersist() {
@@ -52,6 +60,29 @@ public class Subscriber {
     public void onPostPersist() {
         SignupCompleted event = new SignupCompleted(this);
         event.publishAfterCommit();   // 트랜잭션 커밋 후에만 발행
+    }
+
+    public static void authorApproved(AuthorApproved authorApproved) {
+        //implement business logic here:
+
+        /** Example 1:  new item 
+        Subscriber subscriber = new Subscriber();
+        repository().save(subscriber);
+
+        */
+
+  
+        
+
+        repository().findById(authorApproved.getId()).ifPresent(subscriber->{
+            
+            subscriber.setIsAuthor(true); // do something
+            repository().save(subscriber);
+
+
+         });
+    
+
     }
 
 }

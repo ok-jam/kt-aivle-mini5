@@ -15,6 +15,7 @@ public class DecreaseFailed extends AbstractEvent {
     private Long balance;
     private String history;
     private Date updateAt;
+    private Long subscriptionId;
 
     public DecreaseFailed(Point aggregate) {
         super(aggregate);

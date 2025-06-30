@@ -32,7 +32,7 @@ public class Subscribe {
 
     @PostPersist
     public void onPostPersist() {
-                this.status = "신청됨";
+        this.status = "신청됨";
         this.startDate = new Date();
         // 임의로 7일 구독 기간 부여
         this.endDate = new Date(System.currentTimeMillis() + (1000L * 60 * 60 * 24 * 7));
@@ -41,16 +41,23 @@ public class Subscribe {
         SubscribeApplicationed event = new SubscribeApplicationed(this);
         event.publishAfterCommit(); // 이벤트 발행
     }
+
     public void cancel() {
-    this.status = "취소됨";
-
-    SubscribeCanceled event = new SubscribeCanceled(this);
-    event.publishAfterCommit();
+        this.status = "취소됨";
+        SubscribeCanceled event = new SubscribeCanceled(this);
+        event.publishAfterCommit();
     }
+
     public void markAsFailed() {
-    this.status = "실패";  // 상태만 바꿔줌
+        this.status = "실패";  // 상태만 바꿔줌
     }
 
+    public static SubscribeRepository repository() {
+        SubscribeRepository subscribeRepository = SubscriptionApplication.applicationContext.getBean(
+            SubscribeRepository.class
+        );
+        return subscribeRepository;
+    }
 
 
     //<<< Clean Arch / Port Method
@@ -65,19 +72,13 @@ public class Subscribe {
         subscribeFailed.publishAfterCommit();
         */
 
-        /** Example 2:  finding and process
-        
-
-        repository().findById(decreaseFailed.get???()).ifPresent(subscribe->{
+        repository().findById(decreaseFailed.getSubscriptionId()).ifPresent(subscribe->{
             
-            subscribe // do something
-            repository().save(subscribe);
-
-            SubscribeFailed subscribeFailed = new SubscribeFailed(subscribe);
-            subscribeFailed.publishAfterCommit();
+    
+            repository().delete(subscribe);
 
          });
-        */
+        
 
     }
     //>>> Clean Arch / Port Method

@@ -60,12 +60,14 @@ public class Point {
 
                 PointDecreased pointDecreased = new PointDecreased(point);
                 pointDecreased.setBookId(subscribeApplicationed.getBookId());
+                pointDecreased.setPrice(subscribeApplicationed.getPrice());
                 pointDecreased.publishAfterCommit();
             }
             
             // 포인트 충분하지 않으면
             else {
                 DecreaseFailed decreaseFailed = new DecreaseFailed(point);
+                decreaseFailed.setSubscriptionId(subscribeApplicationed.getSubscriptionId());
                 decreaseFailed.publishAfterCommit();
         }
     });
