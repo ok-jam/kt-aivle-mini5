@@ -57,22 +57,7 @@ public class Writing {
 
     //<<< Clean Arch / Port Method
     public static void bookupdate(ResultsReturned resultsReturned) {
-        //implement business logic here:
 
-        /** Example 1:  new item 
-        Writing writing = new Writing();
-        repository().save(writing);
-
-        */
-
-        /** Example 2:  finding and process
-        
-        // if resultsReturned.aiGptId exists, use it
-        
-        // ObjectMapper mapper = new ObjectMapper();
-        // Map<, Object> aiMap = mapper.convertValue(resultsReturned.getAiGptId(), Map.class);
-        
-        */
         repository().findById(resultsReturned.getWritingId()).ifPresent(writing->{
             
             writing.setImageUrl(resultsReturned.getResultImage());
@@ -85,7 +70,12 @@ public class Writing {
   
 
     }
-    //>>> Clean Arch / Port Method
+
+    public void requestRegistration() {
+        RegistrationRequested event = new RegistrationRequested(this);
+        event.publishAfterCommit();
+    }
+    //>>> Clean Arch / Port Metho  d
 
 }
 //>>> DDD / Aggregate Root

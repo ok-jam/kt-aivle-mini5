@@ -31,6 +31,22 @@ public class PolicyHandler {
         @Payload RegistrationRequested registrationRequested
     ) {
         RegistrationRequested event = registrationRequested;
+        System.out.println("### Book 등록 요청 수신: " + event.toString());
+
+        Book book = new Book();
+        
+        book.setTitle(event.getTitle());
+        book.setAuthorId(event.getAuthorId());
+        // book.setCreatedAt(new Date());
+        book.setCategory(event.getCategory());
+        book.setContent(event.getContent());
+        book.setCoverImageUrl(event.getImageUrl());
+        book.setSummary(event.getSummary());
+        book.setSubscriberBill(event.getSubscriberBill());
+        book.setViewcount(0L);
+        book.setReadable(false);
+
+        bookRepository.save(book);
         System.out.println(
             "\n\n##### listener BookRegistration : " +
             registrationRequested +

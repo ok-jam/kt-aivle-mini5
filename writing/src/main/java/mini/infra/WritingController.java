@@ -34,6 +34,9 @@ public class WritingController {
     public Writing register(@RequestBody Writing writing) {
         Writing saved = writingRepository.save(writing);
 
+        RegistrationRequested event = new RegistrationRequested(saved);
+        event.publishAfterCommit();
+
         return saved;
     }
 }

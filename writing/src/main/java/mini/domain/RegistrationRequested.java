@@ -25,6 +25,16 @@ public class RegistrationRequested extends AbstractEvent {
 
     public RegistrationRequested(Writing aggregate) {
         super(aggregate);
+        this.authorId = aggregate.getAuthorId();
+        this.category = aggregate.getCategory();
+        this.content = aggregate.getContent();
+        this.imageUrl = aggregate.getImageUrl();
+        this.pdf = aggregate.getPdf();
+        this.permitSaveAt = aggregate.getPermitSaveAt();
+        this.subscriberBill = aggregate.getSubscriberBill();
+        this.title = aggregate.getTitle();
+        this.writingId = aggregate.getWritingId();
+        this.summary = aggregate.getSummary();
     }
 
     public RegistrationRequested() {

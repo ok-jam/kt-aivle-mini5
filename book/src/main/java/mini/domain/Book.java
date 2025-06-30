@@ -28,6 +28,7 @@ public class Book {
 
     private String title;
     private String summary;
+    private String pdf;
     private Long authorId;
     private String coverImageUrl;
     private String content;
@@ -60,6 +61,12 @@ public class Book {
         book.setTitle(event.getTitle());
         book.setAuthorId(event.getAuthorId());
         book.setCreatedAt(new Date());
+        book.setCategory(event.getCategory());
+        book.setContent(event.getContent());
+        book.setCoverImageUrl(event.getImageUrl());
+        book.setSummary(event.getSummary());
+        book.setSubscriberBill(event.getSubscriberBill());
+        book.setPdf(event.getPdf());
         book.setViewcount(0L);
         book.setReadable(false);
 
