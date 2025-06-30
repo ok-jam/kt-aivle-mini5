@@ -5,6 +5,7 @@ import mini.config.kafka.KafkaProcessor;
 import mini.domain.SubscribeApplicationed;
 import mini.domain.Subscribe;
 import mini.domain.SubscribeRepository;
+import mini.domain.SubscriberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.stream.annotation.StreamListener;
@@ -21,6 +22,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class PolicyHandler {
     private final SubscribeRepository subscribeRepository;
+    private final SubscriberRepository subscriberRepository;
 
     @StreamListener(KafkaProcessor.INPUT)
     public void wheneverSubscribeApplicationed_RequestPointDecrease(@Payload SubscribeApplicationed event) {
@@ -56,5 +58,18 @@ public class PolicyHandler {
             subscribeRepository.save(subscribe);
         });
     }
+    @StreamListener(KafkaProcessor.INPUT)
+    public void wheneverAuthorApproved_MarkAsAuthor(@Payload Map<String, Object> eventData) {
+    if (!eventData.containsKey("id")) return;
+
+    Long subscriberId = Long.valueOf(eventData.get("id").toString());
+
+    log.info("작가 승인 이벤트 수신: {}", subscriberId);
+
+    subscriberRepository.findById(subscriberId).ifPresent(subscriber -> {
+        subscriber.setIsAuthor(true); // Boolean 필드
+        subscriberRepository.save(subscriber);
+    });
+}
 }
 

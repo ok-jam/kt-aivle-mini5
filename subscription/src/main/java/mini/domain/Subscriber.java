@@ -29,6 +29,8 @@ public class Subscriber {
     private Boolean subscriptionType;  // 월 정액 여부
     private Boolean jjim;              // 찜 목록 기능 여부
     private Long reviews;              // 작성 리뷰 수
+    private Boolean isAuthor;
+
 
     public void purchaseMonthlySubscription() {
         this.subscriptionType = true;
@@ -43,6 +45,7 @@ public class Subscriber {
         this.subscriptionType = false;      // 기본값: 월정액 미가입
         this.jjim = false;
         this.reviews = 0L;
+        this.isAuthor =false;
     }
 
     @PostPersist
@@ -50,5 +53,6 @@ public class Subscriber {
         SignupCompleted event = new SignupCompleted(this);
         event.publishAfterCommit();   // 트랜잭션 커밋 후에만 발행
     }
+
 }
 //>>> DDD / Aggregate Root

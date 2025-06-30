@@ -30,17 +30,6 @@ public class WritingController {
         return saved;
     }
 
-
-    @PostMapping("/savebooked")
-    public Writing saveBooked(@RequestBody Writing writing) {
-        Writing saved = writingRepository.save(writing);
-
-        SaveBooked saveBooked = new SaveBooked(saved);
-        saveBooked.publishAfterCommit();
-
-        return saved;
-    }
-
     @PostMapping("/register")
     public Writing register(@RequestBody Writing writing) {
         Writing saved = writingRepository.save(writing);
