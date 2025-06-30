@@ -1,26 +1,7 @@
-package mini.infra;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
-import mini.config.kafka.KafkaProcessor;
-import mini.domain.SubscribeApplicationed;
-import mini.domain.Subscribe;
-import mini.domain.SubscribeRepository;
-import mini.domain.SubscriberRepository;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.cloud.stream.annotation.StreamListener;
-import org.springframework.messaging.handler.annotation.Payload;
-import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
-import mini.infra.AbstractEvent;
-import mini.domain.DecreaseFailed;
-import java.util.HashMap;
-import java.util.Map;
-
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class PolicyHandler {
+public class MypageHandler {
     private final SubscribeRepository subscribeRepository;
     private final SubscriberRepository subscriberRepository;
     
@@ -57,4 +38,3 @@ public class PolicyHandler {
     }
     
 }
-

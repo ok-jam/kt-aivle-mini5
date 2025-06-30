@@ -17,10 +17,7 @@ public class MypageController {
     /** 특정 구독자(userId)의 모든 구독 이력 조회 */
     @GetMapping("/user/{userId}")
     public List<Mypage> getByUserId(@PathVariable Long userId) {
-        return repo.findAll(
-            org.springframework.data.domain.Example.of(
-                new Mypage() {{ setUserId(userId); }}
-            )
-        );
+        return repo.findByUserId(userId);
+    
     }
 }

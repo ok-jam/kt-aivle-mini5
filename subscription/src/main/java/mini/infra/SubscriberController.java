@@ -22,7 +22,7 @@ public class SubscriberController {
 
     private final SubscriberRepository subscriberRepository;
     private final SubscribeRepository subscribeRepository;
-
+    
     // 구독자 등록 API
     @PostMapping
     public Subscriber register(@RequestBody Subscriber subscriber) {
