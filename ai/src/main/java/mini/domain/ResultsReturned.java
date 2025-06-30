@@ -14,11 +14,14 @@ public class ResultsReturned extends AbstractEvent {
     private String resultImage;
     private String resultsummary;
     private String resultPdf;
-    private Long taskId;
     private Long writingId;
 
     public ResultsReturned(Ai aggregate) {
         super(aggregate);
+        this.writingId = aggregate.getWritingId();
+        this.resultImage = aggregate.getResultImage();
+        this.resultsummary = aggregate.getResultsummary();
+        this.resultPdf = aggregate.getResultPdf();
     }
 
     public ResultsReturned() {

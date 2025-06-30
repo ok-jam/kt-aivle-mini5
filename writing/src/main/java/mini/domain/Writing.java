@@ -12,6 +12,7 @@ import mini.WritingApplication;
 import mini.domain.BookInformationRequested;
 import mini.domain.RegistrationRequested;
 
+
 @Entity
 @Table(name = "Writing_table")
 @Data
@@ -31,15 +32,15 @@ public class Writing {
     private String status;
 
     private Date permitSaveAt;
-
+    @Column(length = 9999)
     private String imageUrl;
 
     private String category;
 
     private Integer subscriberBill;
-
+    @Column(length = 9999)
     private String summary;
-
+    @Column(length = 9999)
     private String pdf;
 
     @PostPersist
@@ -72,7 +73,7 @@ public class Writing {
         // Map<, Object> aiMap = mapper.convertValue(resultsReturned.getAiGptId(), Map.class);
         
         */
-        repository().findById(resultsReturned.getWritingId().toString()).ifPresent(writing->{
+        repository().findById(resultsReturned.getWritingId()).ifPresent(writing->{
             
             writing.setImageUrl(resultsReturned.getResultImage());
             writing.setSummary(resultsReturned.getResultsummary());

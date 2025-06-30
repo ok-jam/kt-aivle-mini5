@@ -53,8 +53,11 @@ public class Ai {
         ResultsReturned resultsReturned = new ResultsReturned(this);
         resultsReturned.publishAfterCommit();
 
-        InformationCreated informationCreated = new InformationCreated(this);
-        informationCreated.publishAfterCommit();
+        // InformationCreated informationCreated = new InformationCreated(this);
+        // informationCreated.publishAfterCommit();
+        
+        // BookInformationRequested requested = new BookInformationRequested(this);
+        // requested.publishAfterCommit();
     }
 
     public static AiRepository repository() {
@@ -96,11 +99,13 @@ public class Ai {
                 pdfPath = "PDF 생성 실패";
                 throw new RuntimeException("AI 생성 중 예외 발생", e);
             }
+                
+
             System.out.println("PDF 경로: " + pdfPath);
             // 4. DB 저장
             Ai ai = new Ai();
-            //ai.setWritingId(bookInfo.getWritingId()); // 예시
-            ai.setWritingId(1L);
+            ai.setWritingId(bookInfo.getWritingId()); // 예시
+            //ai.setWritingId(1L);
             ai.setResultsummary(summary);
             ai.setResultImage(imageUrl);
             ai.setResultPdf(pdfPath);
@@ -111,10 +116,13 @@ public class Ai {
             System.out.println(imageUrl);
             System.out.println(pdfPath);
 
-            // 5. 이벤트 발행
-            InformationCreated created = new InformationCreated(ai);
-            created.publishAfterCommit();
-
+            // // // 5. 이벤트 발행
+            // ResultsReturned event = new ResultsReturned();
+            // event.setWritingId(bookInfo.getWritingId());
+            // event.setResultImage(imageUrl);
+            // event.setResultsummary(summary);
+            // event.setResultPdf(pdfPath);
+            // event.publishAfterCommit();
         } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException("AI 정보 생성 중 예외 발생", e);
@@ -208,14 +216,14 @@ public class Ai {
     }
 
     private static String generatePdf(String title, String fullcontent) throws IOException {
-            String sanitizedTitle = title.replaceAll("[^a-zA-Z0-9가-힣]", "_");
+        String sanitizedTitle = title.replaceAll("[^a-zA-Z0-9가-힣]", "_");
     
         String baseDir = System.getProperty("user.dir"); // 현재 프로젝트 디렉토리
         String outputDir = baseDir + File.separator + "output";
         
         File dir = new File(outputDir);
         if (!dir.exists()) dir.mkdirs();
-
+        
         String path = outputDir + File.separator + sanitizedTitle + ".pdf";
         
         try (PDDocument document = new PDDocument()) {

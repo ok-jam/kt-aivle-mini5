@@ -7,4 +7,4 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 //<<< PoEAA / Repository
 @RepositoryRestResource(collectionResourceRel = "writings", path = "writings")
 public interface WritingRepository
-    extends PagingAndSortingRepository<Writing, String> {}
+    extends PagingAndSortingRepository<Writing, Long> {}

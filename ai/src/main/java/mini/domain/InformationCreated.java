@@ -12,6 +12,9 @@ import mini.infra.AbstractEvent;
 public class InformationCreated extends AbstractEvent {
 
     private Long id;
+    private String title;
+    private String content;
+    private String category; 
 
     public InformationCreated(Ai aggregate) {
         super(aggregate);
