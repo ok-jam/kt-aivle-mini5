@@ -11,7 +11,6 @@ import lombok.Data;
 import mini.WritingApplication;
 import mini.domain.BookInformationRequested;
 import mini.domain.RegistrationRequested;
-import mini.domain.SaveBooked;
 
 @Entity
 @Table(name = "Writing_table")
