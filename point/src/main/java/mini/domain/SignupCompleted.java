@@ -16,6 +16,7 @@ public class SignupCompleted extends AbstractEvent {
     private String email;
     private String password;
     private Date joinedAt;
-    private Long jjim;
+    private Boolean jjim;
     private Long reviews;
 }
+

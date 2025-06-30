@@ -20,6 +20,10 @@ public class PointDecreased extends AbstractEvent {
 
     public PointDecreased(Point aggregate) {
         super(aggregate);
+        this.userId = aggregate.getUserId();
+        this.balance = aggregate.getBalance();
+        this.history = aggregate.getHistory();
+        this.updateAt = aggregate.getUpdateAt();
     }
 
     public PointDecreased() {
