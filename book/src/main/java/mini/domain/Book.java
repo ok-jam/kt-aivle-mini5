@@ -86,7 +86,7 @@ public class Book {
 
             // ③ 베스트셀러 조건 판단 (5회 이상)
             if (book.getViewcount() >= 5) {
-                book.setBestCheck(True);
+                book.setBestCheck(true);
                 BestsellerRegistered bestsellerRegistered = new BestsellerRegistered(book);
                 bestsellerRegistered.publishAfterCommit();
             }
