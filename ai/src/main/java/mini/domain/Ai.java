@@ -36,16 +36,16 @@ import org.json.JSONObject;
 public class Ai {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long taskId;
 
     private Long writingId;
 
-    //@Column(length = 9999)
+    @Column(length = 9999)
     private String resultImage;
-
+    @Column(length = 9999)
     private String resultsummary;
-
+    @Column(length = 9999)
     private String resultPdf;
 
     @PostPersist
@@ -69,25 +69,34 @@ public class Ai {
         BookInformationRequested bookInfo
     ) {
         //implement business logic here:
-        String openaiKey = "openaikey";
+        String openaiKey = "openaiKey";
 
         try {
 
             // 1. 책 내용 기반 요약 (GPT)
             String summary = callGptApi(bookInfo.getContent(), openaiKey);
+            // String summary = "Test";
+            System.out.println("GPT 호출 시작");
+            System.out.println("GPT 결과: " + summary);
 
             // 2. DALL·E 이미지 생성
+            
             String dallePrompt = bookInfo.getTitle() + " - " + bookInfo.getContent();
             String imageUrl = callDalleApi(dallePrompt, openaiKey);
-
-            // 3. PDF로 변환
-            String pdfPath = generatePdf(bookInfo.getTitle(), bookInfo.getContent());
-            
-            // 4. 로그로 확인 (여기!!)
-            System.out.println("요약 결과: " + summary);
+            // String imageUrl = "Test";
             System.out.println("이미지 결과: " + imageUrl);
+            // 3. PDF로 변환
+            String pdfPath = "";
+            
+            
+            try{
+                pdfPath = generatePdf(bookInfo.getTitle(), bookInfo.getContent());
+            } catch(Exception e){
+                e.printStackTrace();
+                pdfPath = "PDF 생성 실패";
+                throw new RuntimeException("AI 생성 중 예외 발생", e);
+            }
             System.out.println("PDF 경로: " + pdfPath);
-
             // 4. DB 저장
             Ai ai = new Ai();
             //ai.setWritingId(bookInfo.getWritingId()); // 예시
@@ -95,6 +104,7 @@ public class Ai {
             ai.setResultsummary(summary);
             ai.setResultImage(imageUrl);
             ai.setResultPdf(pdfPath);
+            System.out.println("저장 전 Ai 객체: " + ai.toString());
             repository().save(ai);
 
             System.out.println(summary);
@@ -107,6 +117,7 @@ public class Ai {
 
         } catch (Exception e) {
             e.printStackTrace();
+            throw new RuntimeException("AI 정보 생성 중 예외 발생", e);
             // 로그 기록 및 예외 처리
         }
 
@@ -212,7 +223,8 @@ public class Ai {
             document.addPage(page);
 
             // ✅ 한글 지원 폰트 경로 (윈도우 기준 예: Malgun Gothic)
-            File fontFile = new File("C:/Windows/Fonts/malgun.ttf");
+            File fontFile = new File("/usr/share/fonts/truetype/nanum/NanumGothic.ttf");
+            //File fontFile = new File("C:/Windows/Fonts/malgun.ttf");
             PDType0Font font = PDType0Font.load(document, fontFile);
 
             PDPageContentStream content = new PDPageContentStream(document, page);
