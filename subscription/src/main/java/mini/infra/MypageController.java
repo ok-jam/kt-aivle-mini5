@@ -1,7 +1,7 @@
 package mini.infra;
 
 import mini.domain.Mypage;
-import mini.domain.MypageRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

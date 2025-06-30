@@ -16,8 +16,8 @@ import java.util.Optional;
 public class SubscribeViewViewHandler {
 
 //<<< DDD / CQRS
-    @Autowired
-    private SubscribeViewRepository subscribeViewRepository;
+    private final SubscribeViewRepository subscribeViewRepository;
+    private final 
 
     @StreamListener(KafkaProcessor.INPUT)
     public void whenSubscribeApplicationed_then_CREATE_(@Payload SubscribeApplicationed event) {
@@ -36,6 +36,24 @@ public class SubscribeViewViewHandler {
             subscribeViewRepository.save(subscribeView);
 
         } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @StreamListener(KafkaProcessor.INPUT)
+    public void when_then_CREATE_ (@Payload  a) {
+        try {
+
+            if (!.validate()) return;
+
+            // view 객체 생성
+            SubscribeView subscribeView = new SubscribeView();
+            // view 객체에 이벤트의 Value 를 set 함
+            subscribeView.set();
+            // view 레파지 토리에 save
+            subscribeViewRepository.save(subscribeView);
+
+        }catch (Exception e){
             e.printStackTrace();
         }
     }

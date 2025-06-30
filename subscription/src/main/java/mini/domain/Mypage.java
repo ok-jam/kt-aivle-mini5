@@ -5,7 +5,7 @@ import java.util.Date;
 import lombok.Data;
 
 @Entity
-@Table(name = "MypageView")
+@Table(name = "Mypage_table")
 @Data
 public class Mypage {
     @Id
