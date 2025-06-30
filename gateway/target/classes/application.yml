@@ -1,5 +1,10 @@
 server:
-  port: 8088
+  port: 8080
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
 
 ---
 
@@ -24,7 +29,7 @@ spring:
         - id: point
           uri: http://localhost:8085
           predicates:
-            - Path=/포인트/**, 
+            - Path=/point/**, 
         - id: review
           uri: http://localhost:8086
           predicates:
@@ -40,11 +45,15 @@ spring:
         - id: dashboard
           uri: http://localhost:8089
           predicates:
-            - Path=, /mypages/**
+            - Path=/dashboard/**, /mypages/**
         - id: frontend
-          uri: http://localhost:8080
+          uri: http://localhost:3000
           predicates:
-            - Path=/**
+            - Path=/
+            - Path=/index.html
+            - Path=/static/**
+            - Path=/assets/**
+            - Path=/favicon.ico
 #>>> API Gateway / Routes
       globalcors:
         corsConfigurations:
@@ -96,11 +105,15 @@ spring:
         - id: dashboard
           uri: http://dashboard:8080
           predicates:
-            - Path=, 
+            - Path=dashboard/**, /mypages/**
         - id: frontend
-          uri: http://frontend:8080
+          uri: http://frontend:3000
           predicates:
-            - Path=/**
+            - Path=/
+            - Path=/index.html
+            - Path=/static/**
+            - Path=/assets/**
+            - Path=/favicon.ico
       globalcors:
         corsConfigurations:
           '[/**]':
