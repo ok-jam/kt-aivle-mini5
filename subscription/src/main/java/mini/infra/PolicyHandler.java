@@ -41,7 +41,7 @@ public class PolicyHandler {
 
     @StreamListener(
         value = KafkaProcessor.INPUT,
-        condition = "headers['type']=='DecreaseFailed'"
+        condition = "headers['type']=='AuthorApproved'"
     )
     public void wheneverAuthorApproved_MarkAsAuthor(@Payload AuthorApproved eventData) {
         if (!eventData.containsKey("id")) return;
@@ -55,6 +55,6 @@ public class PolicyHandler {
             subscriberRepository.save(subscriber);
         });
     }
-    
+
 }
 

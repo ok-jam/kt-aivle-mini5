@@ -25,7 +25,7 @@ public class SubscribeViewViewHandler {
             if (!event.validate()) return;
 
             // view 객체 생성
-            SubscribeView subscribeView = new SubscribeView();
+            // SubscribeView subscribeView = new SubscribeView();
 
             // 이벤트 값을 뷰 객체에 설정
             subscribeView.setId(event.getSubscriptionId());
