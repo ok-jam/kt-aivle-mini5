@@ -37,14 +37,6 @@ public class Author {
 
     @PostPersist
     public void onPostPersist() {
-        AuthorApproved authorApproved = new AuthorApproved(this);
-        authorApproved.publishAfterCommit();
-
-        AuthorDisapproved authorDisapproved = new AuthorDisapproved(this);
-        authorDisapproved.publishAfterCommit();
-
-        AuthorDeleted authorDeleted = new AuthorDeleted(this);
-        authorDeleted.publishAfterCommit();
     }
 
     public static AuthorRepository repository() {
