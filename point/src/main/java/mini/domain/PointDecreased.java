@@ -16,6 +16,7 @@ public class PointDecreased extends AbstractEvent {
     private Long balance;
     private String history;
     private Date updateAt;
+    private Long bookId;
 
     public PointDecreased(Point aggregate) {
         super(aggregate);

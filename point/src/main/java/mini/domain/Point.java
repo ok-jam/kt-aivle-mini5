@@ -30,6 +30,8 @@ public class Point {
 
     private Date updateAt;
 
+    private Long bookId;
+
     public static PointRepository repository() {
         PointRepository PointRepository = PointApplication.applicationContext.getBean(
             PointRepository.class
