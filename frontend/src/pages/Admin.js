@@ -1,1 +1,9 @@
-export default function Admin() { return <h1>🛠 관리자 페이지</h1>; }
+import HomeButton from '../components/HomeButton';
+export default function Admin() {
+  return (
+    <div>
+      <HomeButton />
+      <h1>관리자</h1>
+    </div>
+  );
+}
