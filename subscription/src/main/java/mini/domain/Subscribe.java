@@ -42,8 +42,9 @@ public class Subscribe {
         event.publishAfterCommit(); // 이벤트 발행
     }
 
+    
+
     public void cancel() {
-        this.status = "취소됨";
         SubscribeCanceled event = new SubscribeCanceled(this);
         event.publishAfterCommit();
     }

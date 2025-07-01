@@ -14,8 +14,14 @@ import mini.infra.AbstractEvent;
 public class SubscribeView {
 
     @Id
-    //@GeneratedValue(strategy=GenerationType.AUTO)
-    private Long id;
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    private Long subscriptionId;
     private Long userId;
     private Long bookId;
+    private Long status;
+    private String title;
+    private String coverImageUrl;
+    private Date startDate;
+    private Date endDate;
+
 }

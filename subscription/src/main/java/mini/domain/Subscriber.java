@@ -28,7 +28,6 @@ public class Subscriber {
     private Boolean kttelecom;         // KT 통신사 여부
     private Date joinedAt;             // 가입 일시
     private Boolean subscriptionType;  // 월 정액 여부
-    private Boolean jjim;              // 찜 목록 기능 여부
     private Long reviews;              // 작성 리뷰 수
     private Boolean isAuthor;
 
@@ -51,7 +50,6 @@ public class Subscriber {
     public void onPrePersist() {
         this.joinedAt = new Date();         // 가입일 자동 설정
         this.subscriptionType = false;      // 기본값: 월정액 미가입
-        this.jjim = false;
         this.reviews = 0L;
         this.isAuthor =false;
     }
