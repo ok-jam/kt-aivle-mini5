@@ -18,6 +18,9 @@ public class PointIncreased extends AbstractEvent {
 
     public PointIncreased(Point aggregate) {
         super(aggregate);
+        this.userId = aggregate.getUserId();
+        this.balance = aggregate.getBalance();
+        this.history = aggregate.getHistory();
     }
 
     public PointIncreased() {

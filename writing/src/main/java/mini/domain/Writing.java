@@ -64,17 +64,9 @@ public class Writing {
             writing.setSummary(resultsReturned.getResultsummary());
             writing.setPdf(resultsReturned.getResultPdf());
             repository().save(writing);
-
-
          });
-  
-
     }
 
-    public void requestRegistration() {
-        RegistrationRequested event = new RegistrationRequested(this);
-        event.publishAfterCommit();
-    }
     //>>> Clean Arch / Port Metho  d
 
 }
