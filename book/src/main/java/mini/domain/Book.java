@@ -37,7 +37,6 @@ public class Book {
     private Long viewcount;
     private String category;
     private Integer subscriberBill;
-    private Boolean readable;          // 열람 가능 여부
     private Boolean bestCheck;
 
     // ──────────────── 이벤트 발행 (예: 직접 등록 INSERT 시) ────────────────
@@ -68,7 +67,6 @@ public class Book {
         book.setSubscriberBill(event.getSubscriberBill());
         book.setPdf(event.getPdf());
         book.setViewcount(0L);
-        book.setReadable(false);
 
         repository().save(book);
 
@@ -84,12 +82,7 @@ public class Book {
             // ① 조회수 증가
             long current = book.getViewcount() == null ? 0 : book.getViewcount();
             book.setViewcount(current + 1);
-            book.setReadable(true);
             repository().save(book);
-
-            // ② 열람요청됨 이벤트 발행
-            ReadingRequested readingRequested = new ReadingRequested(book);
-            readingRequested.publishAfterCommit();
 
             // ③ 베스트셀러 조건 판단 (5회 이상)
             if (book.getViewcount() >= 5) {
@@ -97,6 +90,10 @@ public class Book {
                 BestsellerRegistered bestsellerRegistered = new BestsellerRegistered(book);
                 bestsellerRegistered.publishAfterCommit();
             }
+
+            // ② 열람요청됨 이벤트 발행
+            ReadingRequested readingRequested = new ReadingRequested(book);
+            readingRequested.publishAfterCommit();
         });
     }
 

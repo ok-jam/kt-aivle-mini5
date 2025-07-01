@@ -20,6 +20,6 @@ public class AuthorApproved extends AbstractEvent {
         this.name = author.getName();
         this.bio = author.getBio();
         this.portfolioUrl = author.getPortfolioUrl();
-        this.status = author.getStatus();
+        this.status = "PENDING";
     }
 }
