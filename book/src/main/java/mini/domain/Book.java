@@ -27,10 +27,14 @@ public class Book {
     private Long id;
 
     private String title;
+    @Column(length = 9999)
     private String summary;
+    @Column(length = 9999)
     private String pdf;
     private Long authorId;
+    @Column(length = 9999)
     private String coverImageUrl;
+    @Column(length = 9999)
     private String content;
     private Date createdAt;
     private Date publishedAt;
@@ -70,10 +74,8 @@ public class Book {
 
         repository().save(book);
 
-        
-
-        BookRegistered bookRegistered = new BookRegistered(book);
-        bookRegistered.publishAfterCommit();
+        // BookRegistered bookRegistered = new BookRegistered(book);
+        // bookRegistered.publishAfterCommit();
     }
 
     // ──────────────── Port Method #2 : 열람 요청 처리 ────────────────

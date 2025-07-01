@@ -26,7 +26,7 @@ public class Writing {
     private Long authorId;
 
     private String title;
-
+    @Column(length = 9999)
     private String content;
 
     private String status;
