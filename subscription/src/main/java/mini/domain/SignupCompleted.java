@@ -30,7 +30,6 @@ public class SignupCompleted extends AbstractEvent {
         this.kttelecom = subscriber.getKttelecom();
         this.joinedAt = subscriber.getJoinedAt();
         this.subscriptionType = subscriber.getSubscriptionType();
-        this.jjim = subscriber.getJjim();
         this.reviews = subscriber.getReviews();
     }
 

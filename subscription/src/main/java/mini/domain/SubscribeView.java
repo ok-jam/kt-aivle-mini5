@@ -18,7 +18,7 @@ public class SubscribeView {
     private Long subscriptionId;
     private Long userId;
     private Long bookId;
-    private Long status;
+    private String status;
     private String title;
     private String coverImageUrl;
     private Date startDate;

@@ -14,4 +14,5 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 public interface SubscribeViewRepository
     extends PagingAndSortingRepository<SubscribeView, Long> {
         Optional<SubscribeView> findByBookId(Long bookId);
+        Optional<SubscribeView> findBySubscriptionId(Long subscriptionId);
     }
