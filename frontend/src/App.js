@@ -17,7 +17,6 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/mypage" element={<MyPage />} />
         <Route path="/admin" element={<Admin />} />
-        <Route path="/book/register" element={<BookRegister />} />
         <Route path="/book/sample/:id" element={<BookSample />} />
         <Route path="/book/detail/:id" element={<BookDetail />} />
         <Route path="/subscribe" element={<Subscribe />} />
