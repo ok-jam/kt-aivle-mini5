@@ -67,7 +67,7 @@ public class AuthorController {
     }
 
     // 작가 삭제
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public void delete(@PathVariable Long id) {
         Author author = authorRepository.findById(id)
             .orElseThrow(() -> new RuntimeException("Author not found"));

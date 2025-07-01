@@ -77,7 +77,8 @@ public class MypageViewHandler {
                 mypage.setPoint(pointIncreased.getBalance());
                 mypageRepository.save(mypage);
             });
-            
+         
+        
         } catch (Exception e) {
             e.printStackTrace();
         }
