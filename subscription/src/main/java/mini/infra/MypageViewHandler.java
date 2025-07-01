@@ -109,7 +109,7 @@ public class MypageViewHandler {
                 mypage.setPoingLog(String.valueOf(pointDecreased.getPrice()));
                 // view 레파지 토리에 save
                 mypageRepository.save(mypage);
-            });
+            }
          
         
         } catch (Exception e) {
