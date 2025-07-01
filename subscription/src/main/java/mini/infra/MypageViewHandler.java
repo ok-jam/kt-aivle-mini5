@@ -26,7 +26,7 @@ public class MypageViewHandler {
         @Payload SignUpCompletion signUpCompletion
     ) {
         try {
-            if (!SignUpCompletion.validate()) return;
+            if (!signUpCompletion.validate()) return;
 
             // view 객체 생성
             Mypage mypage = new Mypage();
@@ -64,10 +64,10 @@ public class MypageViewHandler {
 
     @StreamListener(
         value = KafkaProcessor.INPUT,
-        condition = "headers['type']=='SubscribeApplicationed'"
+        condition = "headers['type']=='PointIncreased'"
     )    
-    public void whenSubscribeApplicationed_then_CREATE_1(
-        @Payload SubscribeApplicationed subscribeApplicationed
+    public void whenSubscribeApplicationed_then_UPDATE_2(
+        @Payload PointIncreased pointIncreased
     ) {
         try {
             if (!subscribeApplicationed.validate()) return;
@@ -109,11 +109,17 @@ public class MypageViewHandler {
                 mypage.setPoingLog(String.valueOf(pointDecreased.getPrice()));
                 // view 레파지 토리에 save
                 mypageRepository.save(mypage);
-            }
+            });
+         
+        
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
+    
+
+
 
     //>>> DDD / CQRS
 }
