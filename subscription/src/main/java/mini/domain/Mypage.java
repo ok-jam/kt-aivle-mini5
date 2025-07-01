@@ -2,6 +2,8 @@ package mini.domain;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
+
 import lombok.Data;
 
 @Entity
@@ -12,5 +14,6 @@ public class Mypage {
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long userId;
     private Long point;
+    private List<String> pointLog;
 
 }
