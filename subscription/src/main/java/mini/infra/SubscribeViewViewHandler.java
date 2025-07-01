@@ -24,7 +24,7 @@ public class SubscribeViewViewHandler {
     )
     public void whenSubscribeApplicationed_then_CREATE_(@Payload SubscribeApplicationed subscribeApplicationed) {
         try {
-            if (!event.validate()) return;
+            if (!subscribeApplicationed.validate()) return;
 
             // view 객체 생성
             SubscribeView subscribeView = new SubscribeView();
@@ -58,6 +58,25 @@ public class SubscribeViewViewHandler {
                 subscribeView.setTitle(readingRequested.getTitle());
                 subscribeView.setCoverImageUrl(readingRequested.getCoverImageUrl());
                 subscribeViewRepository.save(subscribeView);
+            });
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @StreamListener(
+        value = KafkaProcessor.INPUT,
+        condition = "headers['type']=='SubscribeCanceled'"
+    )
+    public void when_then_Delete (@Payload SubscribeCanceled subscribeCanceled) {
+        try {
+
+            if (!subscribeCanceled.validate()) return;
+
+            // view 객체 생성
+            subscribeViewRepository.findBySubscriptionId(subscribeCanceled.getSubscriptionId()).ifPresent(subscribeView->{
+                subscribeViewRepository.delete(subscribeView);
             });
 
         }catch (Exception e){

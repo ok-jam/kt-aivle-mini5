@@ -32,7 +32,7 @@ public class MypageViewHandler {
             Mypage mypage = new Mypage();
             // view 객체에 이벤트의 Value 를 set 함
          
-            mypage.setUserId(signUpCompletion.getUserId());
+            mypage.setUserId(Long.parseLong(signUpCompletion.getUserId()));
             mypage.setPoint(signUpCompletion.getBalance());
             // view 레파지 토리에 save
             mypageRepository.save(mypage);
@@ -51,7 +51,7 @@ public class MypageViewHandler {
         try {
             if (!pointDecreased.validate()) return;
 
-            mypageRepository.findById(pointDecreased.getUserId()).ifPresent(mypage->{
+            mypageRepository.findById(Long.parseLong(pointDecreased.getUserId())).ifPresent(mypage->{
                 mypage.setPoint(pointDecreased.getBalance());
                 mypageRepository.save(mypage);
             });
@@ -70,52 +70,20 @@ public class MypageViewHandler {
         @Payload PointIncreased pointIncreased
     ) {
         try {
-            if (!subscribeApplicationed.validate()) return;
 
-            // view 객체 생성
-            Mypage mypage = new Mypage();
-            // view 객체에 이벤트의 Value 를 set 함
-            mypage.setSubscriptionId(
-                subscribeApplicationed.getSubscriptionId()
-            );
-            mypage.setUserId(subscribeApplicationed.getSubscriberId());
-            mypage.setBookId(subscribeApplicationed.getBookId());
-            mypage.setStartDate();
-            mypage.setEndDate();
-            mypage.setPoint();
-            // view 레파지 토리에 save
-            mypageRepository.save(mypage);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+            if (!pointIncreased.validate()) return;
 
-    @StreamListener(
-        value = KafkaProcessor.INPUT,
-        condition = "headers['type']=='PointDecreased'"
-    )
-    public void whenPointDecreased_then_UPDATE_1(
-        @Payload PointDecreased pointDecreased
-    ) {
-        try {
-            if (!pointDecreased.validate()) return;
-            // view 객체 조회
-
-            List<Mypage> mypageList = mypageRepository.findByUserId(
-                Long.valueOf(pointDecreased.getUserId())
-            );
-            for (Mypage mypage : mypageList) {
-                // view 객체에 이벤트의 eventDirectValue 를 set 함
-                mypage.setPoingLog(String.valueOf(pointDecreased.getPrice()));
-                // view 레파지 토리에 save
+            mypageRepository.findById(Long.parseLong(pointIncreased.getUserId())).ifPresent(mypage->{
+                mypage.setPoint(pointIncreased.getBalance());
                 mypageRepository.save(mypage);
-            }
+            });
          
         
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
 
     
 
