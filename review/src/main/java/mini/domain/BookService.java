@@ -37,14 +37,6 @@ public class BookService {
         reviewCreated.publishAfterCommit();
     }
 
-    // ✅ 찜 추가 메서드 및 이벤트 발행
-    public void addLike() {
-        this.likeCount += 1;
-
-        ReviewCreated event = new ReviewCreated(this);
-        event.publishAfterCommit(); // 또는 publish(), publishImmediately()
-    }
-
     // ===== Repository 접근 메서드 =====
     public static BookServiceRepository repository() {
         return ReviewApplication.applicationContext.getBean(BookServiceRepository.class);

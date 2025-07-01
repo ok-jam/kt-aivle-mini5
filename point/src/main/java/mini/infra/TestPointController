@@ -1,0 +1,25 @@
+package mini.infra;
+
+import mini.domain.Point;
+import mini.domain.SubscribeApplicationed;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
+
+@RestController
+@RequestMapping("/test")
+public class TestPointController {
+
+    @PostMapping("/decrease")
+    public String testDecrease(@RequestBody Map<String, Object> payload) {
+        SubscribeApplicationed event = new SubscribeApplicationed();
+        event.setSubscriberId(Long.parseLong(payload.get("subscriberId").toString()));
+        event.setPrice(Integer.parseInt(payload.get("price").toString()));
+        event.setBookId(Long.parseLong(payload.get("bookId").toString()));
+        event.setSubscriptionId(Long.parseLong(payload.get("subscriptionId").toString()));
+        
+        Point.pointDecreaseRequeset(event);
+
+        return "포인트 차감 로직 실행됨";
+    }
+}

@@ -6,6 +6,7 @@ import mini.domain.BookService;
 import mini.domain.BookServiceRepository;
 
 @RestController
+@RequestMapping(value="/bookServices")
 @Transactional
 public class BookServiceController {
 
@@ -16,23 +17,14 @@ public class BookServiceController {
         this.bookServiceRepository = bookServiceRepository;
     }
 
-    @GetMapping("/bookServices")
+    // @GetMapping("/bookServices")
     public Iterable<BookService> getAllReviews() {
         return bookServiceRepository.findAll();
     }
 
-    @PostMapping("/bookServices")
+    // @PostMapping("/bookServices")
     public BookService createReview(@RequestBody BookService bookService) {
         return bookServiceRepository.save(bookService);
     }
 
-    // ✅ 찜하기 API 추가
-    @PostMapping("/bookServices/{id}/like")
-    public BookService addLike(@PathVariable Long id) {
-        BookService bookService = bookServiceRepository.findById(id)
-            .orElseThrow(() -> new RuntimeException("도서를 찾을 수 없습니다."));
-
-        bookService.addLike(); // 👍 찜 수 증가 + 이벤트 발행
-        return bookServiceRepository.save(bookService);
-    }
 }
