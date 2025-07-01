@@ -33,6 +33,7 @@ public class PolicyHandler {
         RegistrationRequested event = registrationRequested;
         System.out.println("### Book 등록 요청 수신: " + event.toString());
 
+        //bookRepository.save(book);
         System.out.println(
             "\n\n##### listener BookRegistration : " +
             registrationRequested +

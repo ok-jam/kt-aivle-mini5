@@ -70,6 +70,8 @@ public class Book {
 
         repository().save(book);
 
+        
+
         BookRegistered bookRegistered = new BookRegistered(book);
         bookRegistered.publishAfterCommit();
     }
