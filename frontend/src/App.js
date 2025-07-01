@@ -2,7 +2,6 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import MyPage from './pages/MyPage';
 import Admin from './pages/Admin';
-import BookRegister from './pages/BookRegister';
 import BookSample from './pages/BookSample';
 import BookDetail from './pages/BookDetail';
 import Subscribe from './pages/Subscribe';

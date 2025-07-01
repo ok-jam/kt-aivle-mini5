@@ -20,8 +20,8 @@ export default function Home() {
       }}>
         <div><strong>📘 작가의 산책</strong></div>
         <div>
-          <a href="#" style={{ margin: '0 10px' }}>도서 등록</a>
-          <a href="#" style={{ margin: '0 10px' }}>도서 확인</a>
+          <a href="book/write" style={{ margin: '0 10px' }}>도서 등록</a>
+          <a href="books" style={{ margin: '0 10px' }}>도서 확인</a>
         </div>
         <div>
           <button>로그인</button>
