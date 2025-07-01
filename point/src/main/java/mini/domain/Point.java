@@ -53,7 +53,7 @@ public class Point {
             // 포인트가 충분하면 차감
             if (point.getBalance() >= price) {
                 point.setBalance(point.getBalance() - price);
-                point.setHistory("Subscription: -" + price + "P");
+                point.setHistory(price + "P");
                 point.setUpdateAt(new Date());
 
                 repository().save(point);
@@ -83,11 +83,11 @@ public class Point {
 
         point.setUserId(String.valueOf(signupCompleted.getSubscriberId())); // or signupCompleted.getEmail()
         point.setBalance(1000L);  // 기본 지급 포인트
-        point.setHistory("Sign-up: + 1000P");
+        point.setHistory("+1000P");
         point.setUpdateAt(new Date());
         if(signupCompleted.getKttelecom()){
             point.setBalance(6000L);
-            point.setHistory("Sign-up + 1000P, KT + 5000P");
+            point.setHistory("+6000P");
         }
 
         repository().save(point);

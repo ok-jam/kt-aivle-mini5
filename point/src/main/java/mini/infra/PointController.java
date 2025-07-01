@@ -42,6 +42,20 @@ public class PointController {
             return "해당 유저의 포인트 정보가 없습니다.";
         }
     }
+    // 테스트용
+    @PutMapping("/decrease")
+    @Transactional
+    public String decreasePoint(@RequestBody Map<String, Object> payload) {
+        SubscribeApplicationed event = new SubscribeApplicationed();
+        event.setSubscriberId(Long.parseLong(payload.get("subscriberId").toString()));
+        event.setPrice(Integer.parseInt(payload.get("price").toString()));
+        event.setBookId(Long.parseLong(payload.get("bookId").toString()));
+        event.setSubscriptionId(Long.parseLong(payload.get("subscriptionId").toString()));
+
+        Point.pointDecreaseRequeset(event);
+
+        return "포인트 차감 이벤트 처리";
+    }
 }
 
 //>>> Clean Arch / Inbound Adaptor
