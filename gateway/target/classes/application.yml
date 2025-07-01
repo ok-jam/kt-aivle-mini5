@@ -47,7 +47,7 @@ spring:
           predicates:
             - Path=/dashboard/**, /mypages/**
         - id: frontend
-          uri: http://localhost:3000
+          uri: http://localhost:5173
           predicates:
             - Path=/
             - Path=/index.html
