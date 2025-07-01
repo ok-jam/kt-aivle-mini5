@@ -1,5 +1,7 @@
-import HomeButton from '../components/HomeButton';
+// src/pages/MyPage.js
+
 import React from 'react';
+import HomeButton from '../components/HomeButton';
 
 const styles = {
   pageBackground: {
@@ -9,19 +11,19 @@ const styles = {
     fontFamily: 'Arial, sans-serif',
   },
   innerContainer: {
-    backgroundColor: '#F5F7FA',  // 전체 컨테이너 연회색
+    backgroundColor: '#EEF6FF',  // 전체 컨테이너 연파랑
     borderRadius: '16px',
-    padding: '0',                 // 헤더와 섹션 사이 여백 직접 조절
+    padding: '0',
   },
   header: {
     display: 'flex',
     alignItems: 'center',
-    backgroundColor: '#FFF',      // 헤더만 흰색
+    backgroundColor: '#FFF',      // 헤더는 흰색
     padding: '16px 24px',
     borderTopLeftRadius: '16px',
     borderTopRightRadius: '16px',
+    borderBottom: '1px solid #D1D5DB',
   },
-  logo: { height: '32px' },
   navWrapper: {
     flex: 1,
     display: 'flex',
@@ -45,7 +47,7 @@ const styles = {
     fontSize: '14px',
   },
 
-  // “라이트 버튼” 스타일 (포인트 충전, 작가 등록)
+  // 라이트 버튼 (포인트 충전, 작가 등록 등)
   lightButton: {
     backgroundColor: '#E6F0FF',
     color: '#3566A2',
@@ -56,11 +58,34 @@ const styles = {
     fontSize: '14px',
   },
 
+  // 헤더 아래 타이틀 바
+  titleContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    padding: '20px 24px',
+  },
+  title: {
+    fontSize: '32px',
+    fontWeight: 'bold',
+    color: '#3566A2',
+    marginRight: '20px',
+  },
+  actionButton: {
+    backgroundColor: '#3566A2',
+    color: '#FFF',
+    border: 'none',
+    borderRadius: '20px',
+    padding: '8px 16px',
+    cursor: 'pointer',
+    fontSize: '14px',
+  },
+
+  // 타이틀 바와 본문 사이 구분선
   separator: {
-    height: '1px',
-    backgroundColor: '#D1D5DB',
+    borderTop: '1px solid #3566A2',
     margin: '0 24px',
   },
+
   contentGrid: {
     display: 'grid',
     gridTemplateColumns: '1fr 2fr',
@@ -131,12 +156,18 @@ export default function MyPage() {
           <button style={styles.logout}>로그아웃</button>
         </header>
 
+        {/* 타이틀 바 */}
+        <div style={styles.titleContainer}>
+          <h1 style={styles.title}>마이페이지</h1>
+          <button style={styles.actionButton}>작가 페이지로 이동</button>
+        </div>
+
         {/* 구분선 */}
         <div style={styles.separator} />
 
         {/* 본문 그리드 */}
         <div style={styles.contentGrid}>
-          {/* 왼쪽: 회원정보 + 포인트 */}
+          {/* 왼쪽 컬럼 */}
           <div style={{ display: 'grid', gap: '20px' }}>
             {/* 회원정보 섹션 */}
             <section style={styles.section}>
@@ -155,12 +186,14 @@ export default function MyPage() {
                 <button style={styles.lightButton}>포인트 충전</button>
               </div>
               <ul>
-                {points.map((log, i) => <li key={i}>{log}</li>)}
+                {points.map((log, i) => (
+                  <li key={i}>{log}</li>
+                ))}
               </ul>
             </section>
           </div>
 
-          {/* 오른쪽: 구독한 도서 */}
+          {/* 오른쪽 컬럼: 구독한 도서 목록 */}
           <section style={styles.section}>
             <div style={styles.sectionHeader}>
               <h2>구독한 도서 목록</h2>
