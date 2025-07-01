@@ -30,6 +30,7 @@ public class Subscriber {
     private Boolean subscriptionType;  // 월 정액 여부
     private Long reviews;              // 작성 리뷰 수
     private Boolean isAuthor;
+    
 
 
     public void purchaseMonthlySubscription() {

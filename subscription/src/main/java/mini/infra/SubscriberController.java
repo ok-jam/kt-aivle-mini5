@@ -28,6 +28,17 @@ public class SubscriberController {
     public Subscriber register(@RequestBody Subscriber subscriber) {
         return subscriberRepository.save(subscriber);
     }
+    @GetMapping
+    public Iterable<Subscriber> getAllSubscribers() {
+        return subscriberRepository.findAll();
+    }
+
+    @GetMapping("/{id}")
+    public Subscriber getSubscriber(@PathVariable Long id) {
+        return subscriberRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Subscriber not found"));
+    }
+
 
     // 월 구독 신청 API
     @PostMapping("/{id}/purchase-monthly")

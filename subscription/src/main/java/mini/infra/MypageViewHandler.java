@@ -54,7 +54,7 @@ public class MypageViewHandler {
             mypageRepository.findById(pointDecreased.getUserId()).ifPresent(mypage->{
                 mypage.setPoint(pointDecreased.getBalance());
                 mypageRepository.save(mypage);
-            })
+            });
          
         
         } catch (Exception e) {
@@ -80,9 +80,9 @@ public class MypageViewHandler {
             );
             mypage.setUserId(subscribeApplicationed.getSubscriberId());
             mypage.setBookId(subscribeApplicationed.getBookId());
-            mypage.setStartDate()
-            mypage.setEndDate()
-            mypage.setPoint()
+            mypage.setStartDate();
+            mypage.setEndDate();
+            mypage.setPoint();
             // view 레파지 토리에 save
             mypageRepository.save(mypage);
         } catch (Exception e) {
