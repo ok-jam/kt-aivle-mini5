@@ -24,5 +24,16 @@ public class SubscribeController {
     public Subscribe apply(@RequestBody Subscribe subscribe) {
         return subscribeRepository.save(subscribe);
     }
+
+    // 구독 취소 API
+    @PatchMapping("/{id}/cancel")
+    public Subscribe cancelSubscription(@PathVariable Long id) {
+        Subscribe subscribe = subscribeRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("구독 정보가 없습니다."));
+
+        subscribe.cancel();
+        return subscribeRepository.delete(subscribe); // DB 반영
+    }
+    //>>> Clean Arch / Inbound Adaptor
 }
 //>>> Clean Arch / Inbound Adaptor

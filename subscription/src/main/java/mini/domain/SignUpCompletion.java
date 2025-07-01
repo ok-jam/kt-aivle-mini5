@@ -9,14 +9,12 @@ import mini.infra.AbstractEvent;
 //<<< DDD / Domain Event
 @Data
 @ToString
-public class PointDecreased extends AbstractEvent {
+public class SignUpCompletion extends AbstractEvent {
 
-    private Integer price;
     private String userId;
     private Long balance;
     private String history;
     private Date updateAt;
-    private Long bookId;
 
 }
 //>>> DDD / Domain Event

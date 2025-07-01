@@ -40,16 +40,6 @@ public class SubscriberController {
         return subscriberRepository.save(subscriber); // DB 반영
     }
 
-    // 구독 취소 API
-    @PatchMapping("/{id}/cancel")
-    public Subscribe cancelSubscription(@PathVariable Long id) {
-        Subscribe subscribe = subscribeRepository.findById(id)
-            .orElseThrow(() -> new RuntimeException("구독 정보가 없습니다."));
-
-        subscribe.cancel(); // 상태 변경 + 이벤트 발행 (도메인 로직)
-
-        return subscribeRepository.save(subscribe); // DB 반영
-    }
-    //>>> Clean Arch / Inbound Adaptor
+    
 }
 
