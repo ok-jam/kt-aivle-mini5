@@ -11,14 +11,15 @@ export default function BookWrite() {
   const categories = ['소설', '시 / 에세이', '역사/문화', '기술/공학', '자기계발', '인문', '종교', '외국어'];
 
   const handleImageGenerate = async () => {
-    try {
-      const response = await axios.post('/api/cover/generate', { title, content });
-      alert('표지 이미지 생성 요청 완료!');
-      // TODO: response.data.url 등으로 이미지 적용 가능
-    } catch (error) {
-      alert('표지 이미지 생성 실패!');
-    }
-  };
+  try {
+    const response = await axios.post('/ai/create', { title, content });
+    alert('표지 이미지 생성 요청 완료!');
+    // TODO: AI에서 생성된 결과를 서버에서 따로 반환해줄 경우 response.data 활용 가능
+  } catch (error) {
+    alert('표지 이미지 생성 실패!');
+    console.error(error);
+  }
+};
 
   const handleTempSave = async () => {
     try {
@@ -58,7 +59,6 @@ export default function BookWrite() {
 
         <div>
           <Link to="/book/write" style={navLinkStyle}>도서 등록</Link>
-          <Link to="/books" style={navLinkStyle}>도서 확인</Link>
           <button style={navButtonStyle}>로그인</button>
           <button style={navButtonStyle}>회원가입</button>
         </div>
