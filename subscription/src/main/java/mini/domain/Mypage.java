@@ -14,6 +14,7 @@ public class Mypage {
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long userId;
     private Long point;
+    @ElementCollection
     private List<String> pointLog;
 
 }
