@@ -85,6 +85,10 @@ public class Point {
         point.setBalance(1000L);  // 기본 지급 포인트
         point.setHistory("Sign-up: + 1000P");
         point.setUpdateAt(new Date());
+        if(signupCompleted.getKttelecom()){
+            point.setBalance(6000L);
+            point.setHistory("Sign-up + 1000P, KT + 5000P");
+        }
 
         repository().save(point);
 
