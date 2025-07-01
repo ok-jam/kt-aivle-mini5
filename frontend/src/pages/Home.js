@@ -28,6 +28,7 @@ export default function Home() {
     <div style={containerStyle}>
       <Link to="/authors" style={linkStyle}>👥 작가 목록</Link>
       <Link to="/author/register" style={linkStyle}>✍ 작가 등록</Link>
+      <Link to="/mypage" style={linkStyle}>✍ 마이 페이지</Link>
       <Link to="/books" style={linkStyle}>📚 도서 목록</Link>
       <Link to="/book/write" style={linkStyle}>📝 책 작성</Link>
       <Link to="/subscribe" style={linkStyle}>💳 구독자</Link>
