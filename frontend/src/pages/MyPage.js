@@ -4,6 +4,8 @@ import { ReChargeModal } from './ReChargeModal';
 import { AuthorRegisterModal } from './AuthorRegisterModal';
 import { SubscriptionModal } from './SubscriptionModal';
 
+import axios from 'axios';
+
 const styles = {
   pageBackground: {
     backgroundColor: '#EEF6FF',
@@ -194,14 +196,40 @@ export default function MyPage() {
           setShowRecharge(false);
         }}
       />
-      <AuthorRegisterModal
+
+      {/* 작가 등록 모달 */}
+      {/* <AuthorRegisterModal
         visible={showAuthorModal}
         onCancel={() => setShowAuthorModal(false)}
         onConfirm={({ name, intro, portfolio }) => {
           console.log('작가 등록 요청:', name, intro, portfolio);
           setShowAuthorModal(false);
         }}
+      /> */}
+      <AuthorRegisterModal
+        visible={showAuthorModal}
+        onCancel={() => setShowAuthorModal(false)}
+        onConfirm={async ({ name, intro, portfolio }) => {
+          try {
+            const response = await axios.post('/authors', {
+              name,
+              introduction: intro,
+              portfolioUrl: portfolio,
+            });
+
+            console.log('작가 등록 성공:', response.data);
+            alert('작가 등록 요청이 전송되었습니다!');
+          } catch (error) {
+            console.error('작가 등록 실패:', error);
+            alert('작가 등록 중 오류가 발생했습니다.');
+          } finally {
+            setShowAuthorModal(false);
+          }
+        }}
       />
+      
+
+      {/* 월 구독권 구매 모달 */}
       <SubscriptionModal
         visible={showSubscribeModal}
         onCancel={() => setShowSubscribeModal(false)}

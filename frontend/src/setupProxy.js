@@ -1,13 +1,13 @@
 const { createProxyMiddleware } = require('http-proxy-middleware');
 
 module.exports = function (app) {
-//   app.use(
-//     '/authors',
-//     createProxyMiddleware({
-//       target: 'http://localhost:8082',
-//       changeOrigin: true,
-//     })
-//   );
+  app.use(
+    '/authors',
+    createProxyMiddleware({
+      target: 'http://localhost:8082',
+      changeOrigin: true,
+    })
+  );
 //   app.use(
 //     '/books',
 //     createProxyMiddleware({
