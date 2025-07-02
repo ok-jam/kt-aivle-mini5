@@ -125,19 +125,6 @@ export default function MyPage() {
   return (
     <div style={styles.pageBackground}>
       <div style={styles.innerContainer}>
-        {/* 헤더 */}
-        <header style={styles.header}>
-          <HomeButton />
-
-          <div style={styles.navWrapper}>
-            <button style={styles.navButton}>도서 등록</button>
-          </div>
-          <button style={styles.logout}>로그아웃</button>
-        </header>
-
-        {/* 구분선 */}
-        <div style={styles.separator} />
-
         {/* 본문 그리드 */}
         <div style={styles.contentGrid}>
           {/* 왼쪽: 회원정보 + 포인트 */}
