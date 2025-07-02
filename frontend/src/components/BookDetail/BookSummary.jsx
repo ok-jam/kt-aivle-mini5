@@ -1,6 +1,6 @@
-// src/components/BookDetail/BookSummary.jsx
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { Typography, Card, CardContent } from '@mui/material';
 
 function BookSummary({ bookId }) {
   const [summary, setSummary] = useState('');
@@ -19,10 +19,20 @@ function BookSummary({ bookId }) {
   }, [bookId]);
 
   return (
-    <div className="book-summary-box" style={{ margin: '1rem 0', padding: '1rem', backgroundColor: '#f3f3f3' }}>
-      <h3> 책 소개</h3>
-      <p>{summary || '소개 정보 없음'}</p>
-    </div>
+    <Card variant="outlined" sx={{ 
+      mt: 2, 
+      backgroundColor: '#ffffff',
+      minHeight: '250px',
+      width: '300%',
+      borderRadius: 2,
+
+    }}>
+      <CardContent>
+        <Typography variant="body1" color="text.secondary">
+          {summary || '소개 정보 없음'}
+        </Typography>
+      </CardContent>
+    </Card>
   );
 }
 
