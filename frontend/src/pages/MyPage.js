@@ -198,7 +198,7 @@ export default function MyPage() {
       />
 
       {/* 작가 등록 모달 */}
-      {/* <AuthorRegisterModal
+      {/*<AuthorRegisterModal
         visible={showAuthorModal}
         onCancel={() => setShowAuthorModal(false)}
         onConfirm={({ name, intro, portfolio }) => {
@@ -213,7 +213,7 @@ export default function MyPage() {
           try {
             const response = await axios.post('/authors', {
               name,
-              introduction: intro,
+              bio: intro,
               portfolioUrl: portfolio,
             });
 
