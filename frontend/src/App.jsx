@@ -25,6 +25,7 @@ function App() {
           <Route path="/books" element={<BookList />} />
           <Route path="/book/write" element={<BookWrite />} />
         </Route>
+        
       </Routes>
     </Router>
   );
