@@ -21,6 +21,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 import { Link } from 'react-router-dom'; // ✅ 추가
 
+
 const sampleBooks = [
   {
     id: 1,
@@ -56,6 +57,8 @@ const theme = createTheme({
 });
 
 function BookCard({ book, bestseller = false }) {
+  
+
   return (
     <Card
       component={Link} // ✅ 카드 자체를 링크로
@@ -126,40 +129,22 @@ function BookCard({ book, bestseller = false }) {
 }
 
 export default function Home() {
+
   return (
     <ThemeProvider theme={theme}>
       <Box sx={{ bgcolor: '#e9f1ff', minHeight: '100vh' }}>
-        <AppBar position='static' color='transparent' elevation={0}>
-          <Toolbar sx={{ justifyContent: 'space-between' }}>
-            <Stack direction='row' alignItems='center' spacing={1}>
-              <MenuBookIcon sx={{ fontSize: 32, color: 'primary.main' }} />
 
-            </Stack>
-            <Stack direction='row' spacing={4}>
-              <Button color='primary'>도서 등록</Button>
-            </Stack>
-            <Stack direction='row' spacing={2}>
-              <Button variant='contained' color='primary'>
-                로그인
-              </Button>
-              <Button variant='outlined' color='primary'>
-                회원가입
-              </Button>
-            </Stack>
-          </Toolbar>
-        </AppBar>
-
-        <Container maxWidth='md' sx={{ py: 8, textAlign: 'center' }}>
-          <Typography variant='h3' fontWeight={700} gutterBottom>
+        <Container maxWidth="md" sx={{ py: 8, textAlign: 'center' }}>
+          <Typography variant="h3" fontWeight={700} gutterBottom>
             작가의 산책
           </Typography>
-          <Typography variant='h6' color='text.secondary' gutterBottom>
+          <Typography variant="h6" color="text.secondary" gutterBottom>
             국내 최대 독서 플랫폼, “걷다가 서재” 입니다.
           </Typography>
 
           <TextField
             fullWidth
-            placeholder='검색어를 입력해주세요.'
+            placeholder="검색어를 입력해주세요."
             sx={{
               bgcolor: '#fff',
               borderRadius: 5,
@@ -169,8 +154,8 @@ export default function Home() {
             }}
             InputProps={{
               endAdornment: (
-                <InputAdornment position='end'>
-                  <IconButton edge='end'>
+                <InputAdornment position="end">
+                  <IconButton edge="end">
                     <SearchIcon />
                   </IconButton>
                 </InputAdornment>
@@ -179,8 +164,8 @@ export default function Home() {
           />
         </Container>
 
-        <Container maxWidth='lg' sx={{ pb: 8 }}>
-          <Stack direction='row' spacing={4} justifyContent='center'>
+        <Container maxWidth="lg" sx={{ pb: 8 }}>
+          <Stack direction="row" spacing={4} justifyContent="center">
             {sampleBooks.map((book, idx) => (
               <BookCard key={book.id} book={book} bestseller={idx === 0} />
             ))}
