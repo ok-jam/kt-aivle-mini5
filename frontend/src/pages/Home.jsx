@@ -21,6 +21,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 import { Link } from 'react-router-dom'; // ✅ 추가
 import Login from './login';
+import Register from './register';
 import { useState } from 'react';
 
 const sampleBooks = [
@@ -130,50 +131,83 @@ function BookCard({ book, bestseller = false }) {
 }
 
 export default function Home() {
-  const [open, setOpen] = useState(false);
-  
+  const [loginOpen, setLoginOpen] = useState(false);
+  const [registerOpen, setRegisterOpen] = useState(false);
 
-  const handleLogin = (formData) => {
+  const handleLoginSubmit = (formData) => {
     console.log('로그인 정보:', formData);
-    setOpen(false);
+    setLoginOpen(false);
+  };
+
+  const handleRegisterSubmit = (formData) => {
+    console.log('회원가입 정보:', formData);
+    setRegisterOpen(false);
+  };
+
+  const switchToLogin = () => {
+    setRegisterOpen(false);
+    setLoginOpen(true);
+  };
+
+  const switchToRegister = () => {
+    setLoginOpen(false);
+    setRegisterOpen(true);
   };
 
   return (
     <ThemeProvider theme={theme}>
       <Box sx={{ bgcolor: '#e9f1ff', minHeight: '100vh' }}>
-        <AppBar position='static' color='transparent' elevation={0}>
+        <AppBar position="static" color="transparent" elevation={0}>
           <Toolbar sx={{ justifyContent: 'space-between' }}>
-            <Stack direction='row' alignItems='center' spacing={1}>
+            <Stack direction="row" alignItems="center" spacing={1}>
               <MenuBookIcon sx={{ fontSize: 32, color: 'primary.main' }} />
-
             </Stack>
-            <Stack direction='row' spacing={4}>
-              <Button color='primary'>도서 등록</Button>
+            <Stack direction="row" spacing={4}>
+              <Button color="primary">도서 등록</Button>
             </Stack>
-            <Stack direction='row' spacing={2}>
-              <Button variant='contained' color='primary' onClick={() => setOpen(true)}>
-                로그인  
+            <Stack direction="row" spacing={2}>
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={() => setLoginOpen(true)}
+              >
+                로그인
               </Button>
-              <Button variant='outlined' color='primary'>
+              <Button
+                variant="outlined"
+                color="primary"
+                onClick={() => setRegisterOpen(true)}
+              >
                 회원가입
               </Button>
             </Stack>
-            <Login open={open} onClose={() => setOpen(false)} onSubmit={handleLogin} />
+            {/* 로그인 다이얼로그 */}
+            <Login
+              open={loginOpen}
+              onClose={() => setLoginOpen(false)}
+              onSubmit={handleLoginSubmit}
+            />
+            {/* 회원가입 다이얼로그 */}
+            <Register
+              open={registerOpen}
+              onClose={() => setRegisterOpen(false)}
+              onSubmit={handleRegisterSubmit}
+              switchToLogin={switchToLogin}
+            />
           </Toolbar>
-
         </AppBar>
 
-        <Container maxWidth='md' sx={{ py: 8, textAlign: 'center' }}>
-          <Typography variant='h3' fontWeight={700} gutterBottom>
+        <Container maxWidth="md" sx={{ py: 8, textAlign: 'center' }}>
+          <Typography variant="h3" fontWeight={700} gutterBottom>
             작가의 산책
           </Typography>
-          <Typography variant='h6' color='text.secondary' gutterBottom>
+          <Typography variant="h6" color="text.secondary" gutterBottom>
             국내 최대 독서 플랫폼, “걷다가 서재” 입니다.
           </Typography>
 
           <TextField
             fullWidth
-            placeholder='검색어를 입력해주세요.'
+            placeholder="검색어를 입력해주세요."
             sx={{
               bgcolor: '#fff',
               borderRadius: 5,
@@ -183,8 +217,8 @@ export default function Home() {
             }}
             InputProps={{
               endAdornment: (
-                <InputAdornment position='end'>
-                  <IconButton edge='end'>
+                <InputAdornment position="end">
+                  <IconButton edge="end">
                     <SearchIcon />
                   </IconButton>
                 </InputAdornment>
@@ -193,8 +227,8 @@ export default function Home() {
           />
         </Container>
 
-        <Container maxWidth='lg' sx={{ pb: 8 }}>
-          <Stack direction='row' spacing={4} justifyContent='center'>
+        <Container maxWidth="lg" sx={{ pb: 8 }}>
+          <Stack direction="row" spacing={4} justifyContent="center">
             {sampleBooks.map((book, idx) => (
               <BookCard key={book.id} book={book} bestseller={idx === 0} />
             ))}
