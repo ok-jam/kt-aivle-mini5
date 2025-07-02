@@ -21,7 +21,7 @@ import './Admin.css';
 
 // export default AuthorCard;
 
-export default function AuthorCard({ id, name, bio, portfolio, onStatusChange }) {
+export default function AuthorCard({ id, name, bio, portfolioUrl, onStatusChange }) {
   const handleApprove = async () => {
     try {
       await axios.put(`/authors/${id}/approve`);
@@ -45,7 +45,7 @@ export default function AuthorCard({ id, name, bio, portfolio, onStatusChange })
       <div className="card-info">
         <p><strong>작가 이름 :</strong> {name}</p>
         <p><strong>작가 소개 :</strong> {bio}</p>
-        <p><strong>포트폴리오 :</strong> <a href={portfolio}>{portfolio}</a></p>
+        <p><strong>포트폴리오 :</strong> <a href={portfolioUrl}>{portfolioUrl}</a></p>
       </div>
       <div className="card-buttons">
         <button className="btn" onClick={handleApprove}>승인</button>
