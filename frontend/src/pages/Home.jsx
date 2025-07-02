@@ -20,6 +20,8 @@ import {
 import SearchIcon from '@mui/icons-material/Search';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 import { Link } from 'react-router-dom'; // ✅ 추가
+import Login from './login';
+import { useState } from 'react';
 
 const sampleBooks = [
   {
@@ -56,6 +58,8 @@ const theme = createTheme({
 });
 
 function BookCard({ book, bestseller = false }) {
+  
+
   return (
     <Card
       component={Link} // ✅ 카드 자체를 링크로
@@ -126,6 +130,14 @@ function BookCard({ book, bestseller = false }) {
 }
 
 export default function Home() {
+  const [open, setOpen] = useState(false);
+  
+
+  const handleLogin = (formData) => {
+    console.log('로그인 정보:', formData);
+    setOpen(false);
+  };
+
   return (
     <ThemeProvider theme={theme}>
       <Box sx={{ bgcolor: '#e9f1ff', minHeight: '100vh' }}>
@@ -139,14 +151,16 @@ export default function Home() {
               <Button color='primary'>도서 등록</Button>
             </Stack>
             <Stack direction='row' spacing={2}>
-              <Button variant='contained' color='primary'>
-                로그인
+              <Button variant='contained' color='primary' onClick={() => setOpen(true)}>
+                로그인  
               </Button>
               <Button variant='outlined' color='primary'>
                 회원가입
               </Button>
             </Stack>
+            <Login open={open} onClose={() => setOpen(false)} onSubmit={handleLogin} />
           </Toolbar>
+
         </AppBar>
 
         <Container maxWidth='md' sx={{ py: 8, textAlign: 'center' }}>
