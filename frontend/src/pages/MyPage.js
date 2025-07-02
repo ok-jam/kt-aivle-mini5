@@ -4,6 +4,8 @@ import React, { useState } from 'react';
 import { AuthorRegisterModal } from './AuthorRegisterModal';
 import { SubscriptionModal } from './SubscriptionModal';
 
+import axios from 'axios';
+
 const styles = {
   pageBackground: {
     backgroundColor: '#EEF6FF',
@@ -222,7 +224,7 @@ export default function MyPage() {
       />
 
       {/* 작가 등록 모달 */}
-      <AuthorRegisterModal
+      {/* <AuthorRegisterModal
         visible={showAuthorModal}
         onCancel={() => setShowAuthorModal(false)}
         onConfirm={({ name, intro, portfolio }) => {
@@ -230,7 +232,29 @@ export default function MyPage() {
           setShowAuthorModal(false);
           // TODO: API 호출 등 실제 등록 로직 연결
         }}
+      /> */}
+      <AuthorRegisterModal
+        visible={showAuthorModal}
+        onCancel={() => setShowAuthorModal(false)}
+        onConfirm={async ({ name, intro, portfolio }) => {
+          try {
+            const response = await axios.post('/authors', {
+              name,
+              introduction: intro,
+              portfolioUrl: portfolio,
+            });
+
+            console.log('작가 등록 성공:', response.data);
+            alert('작가 등록 요청이 전송되었습니다!');
+          } catch (error) {
+            console.error('작가 등록 실패:', error);
+            alert('작가 등록 중 오류가 발생했습니다.');
+          } finally {
+            setShowAuthorModal(false);
+          }
+        }}
       />
+      
 
       {/* 월 구독권 구매 모달 */}
       <SubscriptionModal
