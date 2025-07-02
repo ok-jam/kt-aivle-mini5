@@ -11,15 +11,14 @@ export default function BookWrite() {
   const categories = ['소설', '시 / 에세이', '역사/문화', '기술/공학', '자기계발', '인문', '종교', '외국어'];
 
   const handleImageGenerate = async () => {
-  try {
-    const response = await axios.post('/ai/create', { title, content });
-    alert('표지 이미지 생성 요청 완료!');
-    // TODO: AI에서 생성된 결과를 서버에서 따로 반환해줄 경우 response.data 활용 가능
-  } catch (error) {
-    alert('표지 이미지 생성 실패!');
-    console.error(error);
-  }
-};
+    try {
+      const response = await axios.post('/ai/create', { title, content });
+      alert('표지 이미지 생성 요청 완료!');
+    } catch (error) {
+      alert('표지 이미지 생성 실패!');
+      console.error(error);
+    }
+  };
 
   const handleTempSave = async () => {
     try {
@@ -41,7 +40,7 @@ export default function BookWrite() {
   };
 
   return (
-    <div>
+    <div style={{ backgroundColor: '#EEF6FF', minHeight: '100vh' }}>
       {/* 상단 네비게이션 바 */}
       <nav style={{
         display: 'flex',
@@ -51,28 +50,22 @@ export default function BookWrite() {
         borderBottom: '1px solid #ccc',
         backgroundColor: '#ffffff'
       }}>
-        <div>
-          <Link to="/" style={{ textDecoration: 'none', color: 'black' }}>
-            <strong style={{ fontSize: '18px' }}>📘 신규 도서 등록 페이지</strong>
-          </Link>
-        </div>
 
-        <div>
-          <Link to="/book/write" style={navLinkStyle}>도서 등록</Link>
-          <button style={navButtonStyle}>로그인</button>
-          <button style={navButtonStyle}>회원가입</button>
-        </div>
       </nav>
 
       {/* 도서 등록 폼 */}
-      <div style={{ maxWidth: '1000px', margin: '40px auto', padding: '40px', backgroundColor: '#eef4fd', border: '2px solid #007bff', borderRadius: '8px' }}>
+      <div style={{ maxWidth: '1000px', margin: '40px auto', padding: '40px' }}>
         <h2 style={{ fontSize: '28px', marginBottom: '4px', fontWeight: 'bold' }}>신규 도서 등록</h2>
         <p style={{ marginBottom: '24px' }}>신규 도서를 등록할 수 있습니다.</p>
-
+        <div style={{
+        borderTop: '2px solid #D1D5DB', // 선 두께 & 색상
+        margin: '1rem 0',            // 위아래 여백
+        }}></div>
         <div style={{ display: 'flex', gap: '40px' }}>
+        
           {/* 왼쪽 입력 폼 */}
           <div style={{ flex: 1 }}>
-            <label>도서 제목</label><br />
+            <label style={{ marginBottom: '10px', fontWeight: 'bold' }}>도서 제목</label><br />
             <input
               type="text"
               value={title}
@@ -80,7 +73,7 @@ export default function BookWrite() {
               style={inputStyle}
             />
 
-            <label>도서 내용</label><br />
+            <label style={{ marginBottom: '10px', fontWeight: 'bold' }}>도서 내용</label><br />
             <textarea
               rows={7}
               value={content}
@@ -105,9 +98,14 @@ export default function BookWrite() {
           </div>
 
           {/* 오른쪽 썸네일 + 버튼 */}
-          <div style={{ width: '260px' }}>
-            <p>표지 생성 이미지</p>
-            <div style={thumbnailStyle}>
+          <div style={{ 
+            width: '260px',
+            display:'flex',
+            flexDirection: 'column',
+            alignSelf: 'flex-start'
+            }}>
+            <p style={{ marginBottom: '10px', fontWeight: 'bold' }} >표지 생성 이미지</p>
+             <div style={thumbnailStyle}>
               TEST<br />테스트용 썸네일입니다.
             </div>
 
