@@ -17,7 +17,6 @@ function App() {
         <Route path="/" element={<Layout />} >
           <Route path="/" element={<Home/>}/>
           <Route path="/mypage" element={<MyPage />} />
-          <Route path="/admin" element={<Admin />} />
           <Route path="/book/sample/:id" element={<BookSample />} />
           <Route path="/book/detail/:id" element={<BookDetail />} />
           <Route path="/subscribe" element={<Subscribe />} />
@@ -25,7 +24,7 @@ function App() {
           <Route path="/books" element={<BookList />} />
           <Route path="/book/write" element={<BookWrite />} />
         </Route>
-        
+        <Route path="/admin" element={<Admin />} />
       </Routes>
     </Router>
   );
