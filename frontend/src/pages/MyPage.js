@@ -1,5 +1,8 @@
 import HomeButton from '../components/HomeButton';
-import React from 'react';
+import { ReChargeModal } from './ReChargeModal';
+import React, { useState } from 'react';
+import { AuthorRegisterModal } from './AuthorRegisterModal';
+import { SubscriptionModal } from './SubscriptionModal';
 
 const styles = {
   pageBackground: {
@@ -106,14 +109,16 @@ const styles = {
 };
 
 export default function MyPage() {
-  const user = { email: 'asdf@1234', password: 'asdf1234' };
+  const [showRecharge, setShowRecharge] = useState(false);
+  const [showAuthorModal, setShowAuthorModal] = useState(false);
+  const [showSubscribeModal, setShowSubscribeModal] = useState(false);
+
+  const user = { email: '', password: '' };
   const subscriptions = [
     { id: 1, title: '리액트로 웹사이트 만들기', date: '2025-06-15' },
     { id: 2, title: '자바스크립트 완전 정복', date: '2025-05-20' },
   ];
   const points = [
-    '포인트 로그인 내역',
-    '포인트 로그인 내역',
     '포인트 로그인 내역',
   ];
 
@@ -126,7 +131,6 @@ export default function MyPage() {
 
           <div style={styles.navWrapper}>
             <button style={styles.navButton}>도서 등록</button>
-            <button style={styles.navButton}>도서 확인</button>
           </div>
           <button style={styles.logout}>로그아웃</button>
         </header>
@@ -142,7 +146,13 @@ export default function MyPage() {
             <section style={styles.section}>
               <div style={styles.sectionHeader}>
                 <h2>회원정보</h2>
-                <button style={styles.lightButton}>작가 등록</button>
+                <button
+                  style={styles.lightButton}
+                  onClick={() => setShowAuthorModal(true)}   // ← 여기
+                >
+                  작가 등록
+                </button>
+
               </div>
               <p>이메일: {user.email}</p>
               <p>비밀번호: {user.password}</p>
@@ -152,7 +162,11 @@ export default function MyPage() {
             <section style={styles.section}>
               <div style={styles.sectionHeader}>
                 <h2>포인트</h2>
-                <button style={styles.lightButton}>포인트 충전</button>
+                <button style={styles.lightButton}
+                 onClick={() => setShowRecharge(true)}
+                 >
+                  포인트 충전
+                </button>
               </div>
               <ul>
                 {points.map((log, i) => <li key={i}>{log}</li>)}
@@ -164,7 +178,12 @@ export default function MyPage() {
           <section style={styles.section}>
             <div style={styles.sectionHeader}>
               <h2>구독한 도서 목록</h2>
-              <button style={styles.lightButton}>월 구독권 구매</button>
+              <button
+              style={styles.lightButton}
+              onClick={() => setShowSubscribeModal(true)}  // ← 클릭 시 모달 열기
+            >
+              월 구독권 구매
+            </button>
             </div>
             <table style={styles.table}>
               <thead>
@@ -192,6 +211,37 @@ export default function MyPage() {
           </section>
         </div>
       </div>
+      {/* 포인트 충전 모달 */}
+      <ReChargeModal
+        visible={showRecharge}
+        onCancel={() => setShowRecharge(false)}
+        onConfirm={(amount) => {
+          console.log(`${amount}원 충전 요청`);
+          setShowRecharge(false);
+        }}
+      />
+
+      {/* 작가 등록 모달 */}
+      <AuthorRegisterModal
+        visible={showAuthorModal}
+        onCancel={() => setShowAuthorModal(false)}
+        onConfirm={({ name, intro, portfolio }) => {
+          console.log('작가 등록 요청:', name, intro, portfolio);
+          setShowAuthorModal(false);
+          // TODO: API 호출 등 실제 등록 로직 연결
+        }}
+      />
+
+      {/* 월 구독권 구매 모달 */}
+      <SubscriptionModal
+        visible={showSubscribeModal}
+        onCancel={() => setShowSubscribeModal(false)}
+        onConfirm={() => {
+          console.log('월 구독권 구매 요청');
+          setShowSubscribeModal(false);
+          // TODO: 실제 구독 API 호출
+        }}
+      />
     </div>
   );
 }
