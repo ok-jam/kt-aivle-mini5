@@ -1,14 +1,10 @@
-// src/pages/BookDetail.js
 import React, { useState } from 'react';
 import CoverImage from '../components/BookDetail/CoverImage';
 import BookSummary from '../components/BookDetail/BookSummary';
 import SubscribeButton from '../components/BookDetail/SubscribeButton';
 import ReviewForm from '../components/BookDetail/ReviewForm';
 import ReviewList from '../components/BookDetail/ReviewList';
-import { Grid, Box, Button, Typography } from '@mui/material';
-import EditIcon from '@mui/icons-material/Edit';
-import IconButton from '@mui/material/IconButton';
-import { Card, CardContent } from '@mui/material';
+import { FaPen } from 'react-icons/fa'; // ✏️ 아이콘
 
 const styles = {
   page: {
@@ -61,6 +57,16 @@ const styles = {
     fontSize: '16px',
     marginBottom: '4px',
   },
+  reviewHeader: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  penIcon: {
+    cursor: 'pointer',
+    fontSize: '16px',
+    color: '#333',
+  },
   fullViewLink: {
     fontSize: '14px',
     textAlign: 'right',
@@ -71,6 +77,8 @@ const styles = {
 };
 
 export default function BookDetailSection() {
+  const [showForm, setShowForm] = useState(false); // 리뷰 작성 폼 토글
+
   return (
     <div style={styles.page}>
       {/* 상단 제목 */}
@@ -92,13 +100,25 @@ export default function BookDetailSection() {
           <BookSummary />
         </div>
 
-        {/* 오른쪽: 리뷰 작성 + 리뷰 리스트 */}
+        {/* 오른쪽: 리뷰 작성 + 리스트 */}
         <div style={styles.rightBox}>
+          {/* 평점 및 리뷰 */}
           <div>
-            <div style={styles.sectionTitle}>평점 및 리뷰</div>
-            <ReviewForm />
+            <div style={{ ...styles.sectionTitle, ...styles.reviewHeader }}>
+              <span>평점 및 리뷰</span>
+              <FaPen
+                onClick={() => setShowForm(!showForm)}
+                style={styles.penIcon}
+              />
+            </div>
+            {showForm && (
+              <div style={{ marginBottom: '16px' }}>
+                <ReviewForm />
+              </div>
+            )}
           </div>
 
+          {/* 리뷰 리스트 */}
           <div>
             <ReviewList bookId={1} />
             <div style={styles.fullViewLink}>전체보기</div>

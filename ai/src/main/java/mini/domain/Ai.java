@@ -68,11 +68,11 @@ public class Ai {
     }
 
     //<<< Clean Arch / Port Method
-    public static void informationcreate(
+    public static Ai informationcreate(
         BookInformationRequested bookInfo
     ) {
         //implement business logic here:
-        String openaiKey = "openaiKey";
+        String openaiKey = "openapikey";
 
         try {
 
@@ -115,7 +115,7 @@ public class Ai {
             System.out.println(summary);
             System.out.println(imageUrl);
             System.out.println(pdfPath);
-
+            return repository().save(ai);
             // // // 5. 이벤트 발행
             // ResultsReturned event = new ResultsReturned();
             // event.setWritingId(bookInfo.getWritingId());
@@ -231,9 +231,10 @@ public class Ai {
             document.addPage(page);
 
             // ✅ 한글 지원 폰트 경로 (윈도우 기준 예: Malgun Gothic)
-            File fontFile = new File("/usr/share/fonts/truetype/nanum/NanumGothic.ttf");
-            //File fontFile = new File("C:/Windows/Fonts/malgun.ttf");
-            PDType0Font font = PDType0Font.load(document, fontFile);
+            // File fontFile = new File("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf");
+            // File fontFile = new File("C:/Windows/Fonts/malgun.ttf");
+            // PDType0Font font = PDType0Font.load(document, fontFile);
+            PDType1Font font = PDType1Font.HELVETICA; 
 
             PDPageContentStream content = new PDPageContentStream(document, page);
             content.beginText();

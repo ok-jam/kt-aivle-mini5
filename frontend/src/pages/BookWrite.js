@@ -6,15 +6,20 @@ export default function BookWrite() {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [category, setCategory] = useState('');
+  const [imageUrl, setImageUrl] = useState('');
+  const [writingId, setWritingId] = useState(1);
   const navigate = useNavigate();
 
   const categories = ['소설', '시 / 에세이', '역사/문화', '기술/공학', '자기계발', '인문', '종교', '외국어'];
 
   const handleImageGenerate = async () => {
   try {
-    const response = await axios.post('/ai/create', { title, content });
-    alert('표지 이미지 생성 요청 완료!');
-    // TODO: AI에서 생성된 결과를 서버에서 따로 반환해줄 경우 response.data 활용 가능
+    const response = await axios.post('ai/create', { writingId, title, content });
+    console.log(response.data); 
+    const { resultImage, resultPdf, resultsummary } = response.data;
+    setImageUrl(resultImage);
+    
+    alert('표지 이미지 생성 완료!');
   } catch (error) {
     alert('표지 이미지 생성 실패!');
     console.error(error);
@@ -106,10 +111,16 @@ export default function BookWrite() {
 
           {/* 오른쪽 썸네일 + 버튼 */}
           <div style={{ width: '260px' }}>
-            <p>표지 생성 이미지</p>
-            <div style={thumbnailStyle}>
-              TEST<br />테스트용 썸네일입니다.
-            </div>
+  <p>표지 생성 이미지</p>
+  <div style={thumbnailStyle}>
+    {imageUrl ? (
+      <img src={imageUrl} alt="썸네일" style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '12px' }} />
+    ) : (
+      <div style={{ textAlign: 'center' }}>
+        TEST<br />테스트용 썸네일입니다.
+      </div>
+    )}
+  </div>
 
             <button onClick={handleImageGenerate} style={buttonStyle}>표지 이미지 생성</button>
             <button onClick={handleTempSave} style={buttonStyle}>임시저장</button>

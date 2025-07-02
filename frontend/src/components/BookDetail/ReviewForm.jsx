@@ -1,46 +1,88 @@
+// src/components/BookDetail/ReviewForm.jsx
 import React, { useState } from 'react';
-import StarRating from './StarRating';
+import {
+  Card,
+  CardContent,
+  Typography,
+  TextField,
+  Button,
+  Box,
+  Rating
+} from '@mui/material';
 import axios from 'axios';
 
 function ReviewForm({ bookId, userId, onReviewSubmitted }) {
   const [rating, setRating] = useState(0);
-  const [comment, setComment] = useState('');
+  const [body, setBody] = useState('');
+  const [title, setTitle] = useState('');
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (rating === 0) return alert('별점을 선택해주세요!');
+  const handleSubmit = async () => {
     try {
-      await axios.post('/bookServices', {
-        bookId,
-        userId,
-        rating,
-        review: comment,
-      });
-      alert('리뷰가 등록되었습니다!');
-      setRating(0);
-      setComment('');
-      onReviewSubmitted(); // 리뷰 목록 새로고침
-    } catch (err) {
-      alert('리뷰 등록 실패!');
-      console.error(err);
-    }
+  await axios.post(`/reviews`, {
+    bookId,
+    userId,
+    rating,
+    title,
+    body,
+  });
+  alert('리뷰가 성공적으로 등록되었습니다!');
+  onReviewSubmitted();  // 폼 닫기 및 목록 새로고침
+} catch (err) {
+  console.error('리뷰 등록 실패:', err);
+  alert('리뷰 등록에 실패했습니다. 다시 시도해주세요.');
+}
   };
 
   return (
-    <form onSubmit={handleSubmit} style={{ marginTop: '2rem' }}>
-      <h3>📝 리뷰 작성</h3>
-      <StarRating rating={rating} setRating={setRating} />
-      <textarea
-        value={comment}
-        onChange={(e) => setComment(e.target.value)}
-        placeholder="리뷰를 작성해주세요"
-        rows={4}
-        style={{ width: '100%', marginTop: '1rem' }}
-      />
-      <button type="submit" style={{ marginTop: '1rem' }}>
-        등록
-      </button>
-    </form>
+    <Card sx={{ maxWidth: 400, boxShadow: 3 }}>
+      <CardContent>
+        <Typography variant="h6" sx={{ mb: 1 }}>
+          리뷰 작성
+        </Typography>
+
+        {/* 별점 */}
+        <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
+          <Rating
+            name="rating"
+            value={rating}
+            onChange={(e, newValue) => setRating(newValue)}
+          />
+          <Typography sx={{ ml: 1 }}>{rating}점</Typography>
+        </Box>
+
+        {/* 제목 */}
+        <TextField
+          label="제목"
+          fullWidth
+          size="small"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          sx={{ mb: 1 }}
+        />
+
+        {/* 본문 */}
+        <TextField
+          label="리뷰 내용"
+          multiline
+          rows={3}
+          fullWidth
+          size="small"
+          value={body}
+          onChange={(e) => setBody(e.target.value)}
+          sx={{ mb: 2 }}
+        />
+
+        {/* 등록 버튼 */}
+        <Button
+          variant="contained"
+          fullWidth
+          onClick={handleSubmit}
+          sx={{ fontWeight: 600 }}
+        >
+          등록
+        </Button>
+      </CardContent>
+    </Card>
   );
 }
 

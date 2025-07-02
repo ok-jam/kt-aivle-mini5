@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 //<<< Clean Arch / Inbound Adaptor
-
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/ai")
 // @RequestMapping(value="/ais")
@@ -23,9 +23,9 @@ public class AiController {
     AiRepository aiRepository;
 
     @PostMapping("/create")
-    public void create(@RequestBody BookInformationRequested dto) {
-        Ai.informationcreate(dto);
-    }
+    public Ai create(@RequestBody BookInformationRequested dto) {
+    return Ai.informationcreate(dto);
+}
 
     @GetMapping("/all")
     public Iterable<Ai> getAllResults() {

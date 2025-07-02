@@ -22,7 +22,7 @@ function CoverImage({ writingId }) {
   }, [writingId]);
 
   return (
-    <div style={{ width: '200px', height: '300px', border: '1px solid #ccc' }}>
+    <div style={{ width: '200px', height: '250px', border: '1px solid #ccc' }}>
       {imageUrl ? (
         <img src={imageUrl} alt="표지 이미지" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
       ) : (
