@@ -101,7 +101,6 @@ export default function BookDetailSection() {
 
           <div>
             <ReviewList bookId={1} />
-            <div style={styles.fullViewLink}>전체보기</div>
           </div>
         </div>
       </div>
