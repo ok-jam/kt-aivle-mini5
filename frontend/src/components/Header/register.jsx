@@ -8,7 +8,7 @@ import {
   Button,
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-// import api from '../api';
+import api from '../../api';
 
 export default function Register({ open, onClose }) {
   const navigate = useNavigate();
@@ -38,16 +38,16 @@ export default function Register({ open, onClose }) {
       return;
     }
 
-    // try {
-    //   const response = await api.post('/users/signIn', { id, password, name, email });
-    //   console.log('서버 응답:', response.data);
-    //   alert('회원가입 성공!');
-    //   onClose();
-    //   navigate('/');
-    // } catch (error) {
-    //   console.error('회원가입 실패:', error);
-    //   alert('오류가 발생했습니다.');
-    // }
+    try {
+      const response = await api.post('/users/signIn', { id, password, name, email });
+      console.log('서버 응답:', response.data);
+      alert('회원가입 성공!');
+      onClose();
+      navigate('/');
+    } catch (error) {
+      console.error('회원가입 실패:', error);
+      alert('오류가 발생했습니다.');
+    }
   };
 
   return (
