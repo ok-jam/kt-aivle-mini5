@@ -8,11 +8,11 @@ import {
   Button,
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-// import api from '../api';
+import api from '../../api';
 
 export default function Login({ open, onClose }) {
   const navigate = useNavigate();
-  const [form, setForm] = useState({ id: '', password: '' });
+  const [form, setForm] = useState({ email: '', password: '' });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -20,23 +20,23 @@ export default function Login({ open, onClose }) {
   };
 
   const handleSubmit = async () => {
-    const { id, password } = form;
-    if (!id || !password) {
-      alert('아이디, 비밀번호 모두 필수입니다.');
+    const { email, password } = form;
+    if ( !password || !email) {
+      alert('이메일, 이름, 비밀번호 모두 필수입니다.');
       return;
     }
 
-    // try {
-    //   const response = await api.post('/users/logIn', { id, password });
-    //   console.log('서버 응답:', response.data);
-    //   localStorage.setItem('userId', id);
-    //   alert('로그인 성공!');
-    //   onClose(); // 모달 닫기
-    //   navigate('/');
-    // } catch (error) {
-    //   console.error('로그인 실패:', error);
-    //   alert('오류가 발생했습니다.');
-    // }
+    try {
+      const response = await api.post('/subscriber', { email, password });
+      console.log('서버 응답:', response.data);
+      localStorage.setItem('userId', email);
+      alert('로그인 성공!');
+      onClose(); // 모달 닫기
+      navigate('/');
+    } catch (error) {
+      console.error('로그인 실패:', error);
+      alert('오류가 발생했습니다.');
+    }
   };
 
   return (
@@ -45,9 +45,9 @@ export default function Login({ open, onClose }) {
 
       <DialogContent sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
         <TextField
-          label="아이디"
-          name="id"
-          value={form.id}
+          label="이메일"
+          name="email"
+          value={form.email}
           onChange={handleChange}
           fullWidth
           autoFocus
