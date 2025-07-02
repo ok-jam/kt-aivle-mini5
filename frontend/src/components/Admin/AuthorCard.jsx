@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import './Admin.css'; // 스타일을 따로 분리해서 관리할 수도 있어요
+import './Admin.css'; 
 
 
 // const AuthorCard = ({ name, bio, portfolio }) => {
