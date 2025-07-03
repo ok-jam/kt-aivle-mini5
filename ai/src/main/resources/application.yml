@@ -56,9 +56,9 @@ server:
 spring:
   profiles: docker
   jpa:
+    hibernate:
+          ddl-auto: update
     properties:
-      hibernate:
-        ddl-auto: update
       hibernate:
         show_sql: true
         format_sql: true

@@ -81,7 +81,7 @@ spring:
         - id: subscription
           uri: http://subscription:8080
           predicates:
-            - Path=/subscribers/**, /subscribes/**, 
+            - Path=/subscribers/**, /subscribes/**, /mypage/**
         - id: writing
           uri: http://writing:8080
           predicates:

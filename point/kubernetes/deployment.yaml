@@ -13,7 +13,7 @@ spec:
     metadata:
       labels:
         app: point
-        sidecar.istio.io/inject:"true"
+        sidecar.istio.io/inject: "true"
     spec:
       containers:
         - name: point

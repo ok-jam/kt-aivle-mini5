@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: ai
-          image: "gangmin522/ai:202507032"
+          image: "gangmin522/ai:2507032"
           ports:
             - containerPort: 8080
           readinessProbe:

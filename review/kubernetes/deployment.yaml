@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: review
-          image: "jinsuheo/review:250703"
+          image: "gangmin522/review:250703"
           ports:
             - containerPort: 8080
           readinessProbe:
