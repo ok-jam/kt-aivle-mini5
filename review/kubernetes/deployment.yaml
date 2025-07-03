@@ -13,10 +13,11 @@ spec:
     metadata:
       labels:
         app: review
+        sidecar.istio.io/inject: "true"
     spec:
       containers:
         - name: review
-          image: "username/review:latest"
+          image: "jinsuheo/review:250703"
           ports:
             - containerPort: 8080
           readinessProbe:
