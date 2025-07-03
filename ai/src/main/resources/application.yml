@@ -1,91 +1,9 @@
-# server:
-#   port: 8080
+server:
+  port: 8080
 
-# spring:
-#   application:
-#     name: ai
-# ---
-
-# spring:
-#   profiles: default
-#   jpa:
-#     hibernate:
-#       ddl-auto: create
-#     properties:
-#       hibernate:
-#         show_sql: true
-#         format_sql: true
-#         implicit_naming_strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyComponentPathImpl
-#   cloud:
-#     stream:
-#       kafka:
-#         binder:
-#           brokers: localhost:9092
-#         streams:
-#           binder:
-#             configuration:
-#               default:
-#                 key:
-#                   serde: org.apache.kafka.common.serialization.Serdes$StringSerde
-#                 value:
-#                   serde: org.apache.kafka.common.serialization.Serdes$StringSerde
-#       bindings:
-#         event-in:
-#           group: ai
-# #<<< EDA / Topic Name
-#           destination: mini
-# #>>> EDA / Topic Name
-#           contentType: application/json
-#         event-out:
-# #<<< EDA / Topic Name
-#           destination: mini
-# #>>> EDA / Topic Name
-#           contentType: application/json
-
-# logging:
-#   level:
-#     org.hibernate.type: trace
-#     org.springframework.cloud: debug
-
-
-# server:
-#   port: 8087
-
-# ---
-
-# spring:
-#   profiles: docker
-#   jpa:
-#     properties:
-#       hibernate:
-#         show_sql: true
-#         format_sql: true
-#         implicit_naming_strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyComponentPathImpl
-#   cloud:
-#     stream:
-#       kafka:
-#         binder:
-#           brokers: my-kafka:9092
-#         streams:
-#           binder:
-#             configuration:
-#               default:
-#                 key:
-#                   serde: org.apache.kafka.common.serialization.Serdes$StringSerde
-#                 value:
-#                   serde: org.apache.kafka.common.serialization.Serdes$StringSerde
-#       bindings:
-#         event-in:
-#           group: ai
-#           destination: mini
-#           contentType: application/json
-#         event-out:
-#           destination: mini
-#           contentType: application/json
 spring:
   application:
     name: ai
-
 ---
 
 spring:
@@ -114,28 +32,33 @@ spring:
       bindings:
         event-in:
           group: ai
+#<<< EDA / Topic Name
           destination: mini
+#>>> EDA / Topic Name
           contentType: application/json
         event-out:
+#<<< EDA / Topic Name
           destination: mini
+#>>> EDA / Topic Name
           contentType: application/json
-
-server:
-  port: 8087
 
 logging:
   level:
     org.hibernate.type: trace
     org.springframework.cloud: debug
 
+
+server:
+  port: 8087
+
 ---
 
 spring:
   profiles: docker
   jpa:
-    hibernate:
-      ddl-auto: update   # 생성 후 유지가 목적이라면 update
     properties:
+      hibernate:
+        ddl-auto: update
       hibernate:
         show_sql: true
         format_sql: true
@@ -161,8 +84,3 @@ spring:
         event-out:
           destination: mini
           contentType: application/json
-
-server:
-  port: 8087
-
-

@@ -13,11 +13,11 @@ spec:
     metadata:
       labels:
         app: ai
-        sidecar.istio.io/inject: "true”
+        sidecar.istio.io/inject: "true"
     spec:
       containers:
         - name: ai
-          image: "okjam/ai:250703"
+          image: "gangmin522/ai:202507032"
           ports:
             - containerPort: 8080
           readinessProbe:
