@@ -13,10 +13,11 @@ spec:
     metadata:
       labels:
         app: subscription
+        sidecar.istio.io/inject: "true"
     spec:
       containers:
         - name: subscription
-          image: "username/subscription:latest"
+          image: "munseunghwan/subscription:250703"
           ports:
             - containerPort: 8080
           readinessProbe:

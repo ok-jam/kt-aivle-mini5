@@ -13,10 +13,11 @@ spec:
     metadata:
       labels:
         app: writing
+        sidecar.istio.io/inject: "true”
     spec:
       containers:
         - name: writing
-          image: "username/writing:latest"
+          image: "gangmin522/writing:250703"
           ports:
             - containerPort: 8080
           readinessProbe:
