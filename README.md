@@ -11,15 +11,14 @@ MSA(Event-Driven) 아키텍처를 적용하였으며, Kubernetes, Kafka, API Gat
 
 ## 👥 팀 구성 및 역할
 
-| 이름    | 역할 및 담당 업무                         |
-|---------|-----------------------------------------|
-| 김민욱  | ⏰ 타임키퍼, 협업 환경 구성자            |
-| 남강민  | 🔍 검토 담당자, Kubernetes 클러스터 관리자 |
-| 문승환  | 📢 발표자, 모니터링 서버 담당자           |
-| 진예나  | 📝 서기, 파이프라인 관리자                |
-| 최재윤  | 🎨 PPT 제작자, 컨테이너 레지스트리 관리자 |
-| 허진수  | 🧑‍✈️ 조장, 서브 도메인 Owner              |
-
+| 이름     | GitHub | 역할 및 담당 업무 |
+|----------|--------|------------------|
+| 김민욱   | [@ok-jam](https://github.com/ok-jam) | ⏰ 타임키퍼, 협업 환경 구성자 |
+| 남강민   | [@namgangmin](https://github.com/namgangmin) | 🔍 검토 담당자, Kubernetes 클러스터 관리자 |
+| 문승환   | [@munseunghwan](https://github.com/munseunghwan) | 📢 발표자, 모니터링 서버 담당자 |
+| 진예나   | [@jinyena](https://github.com/jinyena) | 📝 서기, 파이프라인 관리자 |
+| 최재윤   | [@jaeeyun103](https://github.com/jaeeyun103) | 🎨 PPT 제작자, 컨테이너 레지스트리 관리자 |
+| 허진수   | [@201924611](https://github.com/201924611) | 🧑‍✈️ 조장, 서브 도메인 Owner |
 ---
 
 ## 🛠 기술 스택
