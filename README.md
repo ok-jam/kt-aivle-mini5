@@ -63,8 +63,10 @@ cd ../infra
 docker-compose exec -it kafka /bin/bash
 cd /bin
 ./kafka-console-consumer --bootstrap-server localhost:9092 --topic <토픽명>
+```
 
-# 2. 백엔드 마이크로서비스 실행
+### 2. 백엔드 마이크로서비스 실행
+```bash
 cd ../../author
 mvn spring-boot:run
 cd ../subscription
@@ -79,12 +81,16 @@ cd ../ai
 mvn spring-boot:run
 cd ../book
 mvn spring-boot:run
+```
 
 # 3. API Gateway 실행
+```bash
 cd ../gateway
 mvn spring-boot:run
-
+```
 # 4. 프론트엔드 실행
+```bash
 cd ../frontend
 npm install
 npm run start
+```
