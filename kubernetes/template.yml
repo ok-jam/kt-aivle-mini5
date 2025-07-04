@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: author
-          image: username/author:latest
+          image: user27.azurecr.io/author:latest
           ports:
             - containerPort: 8080
           readinessProbe:
@@ -58,7 +58,7 @@ spec:
     spec:
       containers:
         - name: subscription
-          image: username/subscription:latest
+          image: user27.azurecr.io/subscription:latest
           ports:
             - containerPort: 8080
           readinessProbe:
@@ -258,7 +258,7 @@ spec:
     spec:
       containers:
         - name: book
-          image: username/book:latest
+          image: user27.azurecr.io/book:latest
           ports:
             - containerPort: 8080
           readinessProbe:
