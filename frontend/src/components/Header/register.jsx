@@ -13,7 +13,6 @@ import api from '../../api';
 export default function Register({ open, onClose }) {
   const navigate = useNavigate();
   const [form, setForm] = useState({
-    id: '',
     password: '',
     confirm: '',
     name: '',
@@ -26,10 +25,10 @@ export default function Register({ open, onClose }) {
   };
 
   const handleSubmit = async () => {
-    const { id, password, confirm, name, email } = form;
+    const { password, confirm, name, email } = form;
 
-    if (!id || !password || !name || !email) {
-      alert('아이디, 비밀번호, 이름, 이메일은 모두 필수입니다.');
+    if (!password || !name || !email) {
+      alert('비밀번호, 이름, 이메일은 모두 필수입니다.');
       return;
     }
 
@@ -39,7 +38,7 @@ export default function Register({ open, onClose }) {
     }
 
     try {
-      const response = await api.post('/users/signIn', { id, password, name, email });
+      const response = await api.post('/subscribers', { name, email, password });
       console.log('서버 응답:', response.data);
       alert('회원가입 성공!');
       onClose();
@@ -68,13 +67,6 @@ export default function Register({ open, onClose }) {
           name="email"
           type="email"
           value={form.email}
-          onChange={handleChange}
-          fullWidth
-        />
-        <TextField
-          label="아이디"
-          name="id"
-          value={form.id}
           onChange={handleChange}
           fullWidth
         />

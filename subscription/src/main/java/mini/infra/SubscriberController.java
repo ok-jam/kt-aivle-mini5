@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 import mini.domain.*;
+import mini.domain.LoginRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -49,6 +50,19 @@ public class SubscriberController {
         subscriber.purchaseMonthlySubscription(); // 도메인 메서드 호출
 
         return subscriberRepository.save(subscriber); // DB 반영
+    }
+
+    // 로그인 API
+    @PostMapping("/login")
+    public Subscriber login(@RequestBody LoginRequest loginRequest) {
+        Subscriber subscriber = subscriberRepository.findByEmail(loginRequest.getEmail())
+            .orElseThrow(() -> new RuntimeException("User not found with email: " + loginRequest.getEmail()));
+
+        if (!subscriber.getPassword().equals(loginRequest.getPassword())) {
+            throw new RuntimeException("Invalid password");
+        }
+
+        return subscriber;
     }
 
     
