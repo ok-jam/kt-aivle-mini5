@@ -14,7 +14,7 @@ function ReviewList({ bookId }) {
       try {
         const res = await axios.get('/bookServices');
         const bookReviews = res.data.filter((r) => r.bookId === bookId);
-        setReviews(combinedReviews);
+        setReviews(bookReviews);
       } catch (err) {
         console.error('리뷰 불러오기 실패:', err);
       }
