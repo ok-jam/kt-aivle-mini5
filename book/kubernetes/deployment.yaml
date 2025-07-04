@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: book
-          image: "user27.azurecr.io/book:latest"
+          image: "jaeeyun26/book:250703"
           ports:
             - containerPort: 8080
           readinessProbe:
