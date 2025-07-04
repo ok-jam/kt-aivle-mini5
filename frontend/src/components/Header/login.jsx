@@ -29,7 +29,7 @@ export default function Login({ open, onClose }) {
     try {
       const response = await api.post('/subscribers/login', { email, password });
       console.log('서버 응답:', response.data);
-      localStorage.setItem('userId', email);
+      localStorage.setItem('subscriberId', response.data.subscriberId);
       alert('로그인 성공!');
       onClose(); // 모달 닫기
       navigate('/');

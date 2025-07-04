@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 //<<< Clean Arch / Inbound Adaptor
 
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "/subscribers")
 @Transactional
 @RequiredArgsConstructor
+@CrossOrigin(origins = "http://localhost:3000")
 public class SubscriberController {
 
     private final SubscriberRepository subscriberRepository;
